@@ -1,0 +1,21 @@
+{
+  "generator-jhipster": {
+    "baseName": "burnsearch",
+    "packageName": "org.burnsearch",
+    "packageFolder": "org/burnsearch",
+    "authenticationType": "oauth2",
+    "hibernateCache": "no",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "elasticsearch",
+    "useCompass": false,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "javaVersion": "8",
+    "enableTranslation": false,
+    "rememberMeKey": "4713a1ed01211cc5e8da067f61812646db0e22e4"
+  }
+}
