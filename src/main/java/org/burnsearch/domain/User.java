@@ -20,7 +20,7 @@ import org.joda.time.DateTime;
  */
 @Entity
 @Table(name = "JHI_USER")
-@Document(indexName="user")
+@Document(indexName="user", shards = 1)
 public class User extends AbstractAuditingEntity implements Serializable {
 
     @Id
@@ -35,7 +35,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @JsonIgnore
     @NotNull
-    @Size(min = 60, max = 60) 
+    @Size(min = 60, max = 60)
     @Column(length = 60)
     private String password;
 

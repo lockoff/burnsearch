@@ -1,0 +1,88 @@
+[
+    {
+        "hosted_by_camp": {
+            "name": "Cirque Brûlée",
+            "id": 7332
+        },
+        "occurrence_set": [
+            {
+                "start_time": "2015-09-01 21:00:00",
+                "end_time": "2015-09-02 04:00:00"
+            }
+        ],
+        "description": "Join us at Brûlée for 1001 Nights. Be mesmerized by gogo dancers, belly dancers, DJs and more! Open champagne bar all night. - Bring drums if you have them.",
+        "title": "1001 Nights at Brûlée",
+        "url": "http://www.brulee.co/",
+        "year": {
+            "id": 11,
+            "year": "2015"
+        },
+        "all_day": false,
+        "id": 14543,
+        "print_description": "Join us at Brûlée for 1001 Nights. Be mesmerized by gogo dancers, belly dancers, DJs and more! Open champagne bar all night. - Drums encouraged.",
+        "check_location": false,
+        "slug": "1001-nights-at-brulee",
+        "other_location": "",
+        "event_type": {
+            "abbr": "prty",
+            "label": "Gathering/Party"
+        }
+    },
+    {
+        "hosted_by_camp": {
+            "name": "Kamp Suckie Fuckaye",
+            "id": 7052
+        },
+        "occurrence_set": [
+            {
+                "start_time": "2015-08-31 12:00:00",
+                "end_time": "2015-08-31 12:30:00"
+            },
+            {
+                "start_time": "2015-09-01 12:00:00",
+                "end_time": "2015-09-01 12:30:00"
+            },
+            {
+                "start_time": "2015-09-02 12:00:00",
+                "end_time": "2015-09-02 12:30:00"
+            },
+            {
+                "start_time": "2015-09-03 12:00:00",
+                "end_time": "2015-09-03 12:30:00"
+            },
+            {
+                "start_time": "2015-09-04 12:00:00",
+                "end_time": "2015-09-04 12:30:00"
+            },
+            {
+                "start_time": "2015-09-05 12:00:00",
+                "end_time": "2015-09-05 12:30:00"
+            },
+            {
+                "start_time": "2015-09-06 12:00:00",
+                "end_time": "2015-09-06 12:30:00"
+            },
+            {
+                "start_time": "2015-09-07 12:00:00",
+                "end_time": "2015-09-07 12:30:00"
+            }
+        ],
+        "description": "Come on by the Suck and Fuck Saloon for our daily 100 squats. It's not what you think.",
+        "title": "100 squats!",
+        "url": "",
+        "year": {
+            "id": 11,
+            "year": "2015"
+        },
+        "all_day": false,
+        "id": 14877,
+        "print_description": "Come on by the Suck and Fuck Saloon for our daily 100 squats. It's not what you think.",
+        "check_location": false,
+        "slug": "100-squats",
+        "other_location": "n0nlethal",
+        "event_type": {
+            "abbr": "cere",
+            "label": "Ritual/Ceremony"
+        }
+    }
+]

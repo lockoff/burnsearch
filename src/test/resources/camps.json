@@ -1,0 +1,57 @@
+[
+    {
+        "name": "&",
+        "url": "http://www.example.com",
+        "contact_email": null,
+        "year": {
+            "id": 11,
+            "year": "2015"
+        },
+        "id": 7996,
+        "description": "None"
+    },
+    {
+        "name": "1001 Nights",
+        "url": null,
+        "contact_email": "bdahleh@gmail.com",
+        "year": {
+            "id": 11,
+            "year": "2015"
+        },
+        "id": 7381,
+        "description": "1001 nights is a camp that offers a social setting every night to collect stories from burners reaching 1001 stories in the 7 nights of the burning man experience. the camp also collects stories every morning offering cheese and zaatar manakeesh (dough based pastries with cheese and Thyme) along with refreshing shots. \r\n\r\nFlow artists are welcome to flow in our space with hoops and pois for workshops or to jam on our flow tunes along with world renowned hoopers.\r\n\r\npunch will be made every night.. music will playing for jams and every night for the social setting.."
+    },
+    {
+        "name": "1.21 Gigawatts",
+        "url": null,
+        "contact_email": null,
+        "year": {
+            "id": 11,
+            "year": "2015"
+        },
+        "id": 7988,
+        "description": "Stop by 1.21 Gigawatts and go on a learning safari that just might change the course of your life! That’s right Marty, we’re going Back to the Future!\r\n\r\n1.21 GW will feature hosted content and one on one guidance sessions from experts. Don’t forget to stop by to write a letter to yourself to be delivered in the future!"
+    },
+    {
+        "name": "1 Million Dumplings",
+        "url": null,
+        "contact_email": "stan@loveeatshare.com",
+        "year": {
+            "id": 11,
+            "year": "2015"
+        },
+        "id": 7358,
+        "description": "Hot dumplings, cooking workshops, good music, yoga and chilling zone in \"1 Million Dumplings\" Camp on the Burning Man Festival."
+    },
+    {
+        "name": "404:// Village Not Found",
+        "url": null,
+        "contact_email": null,
+        "year": {
+            "id": 11,
+            "year": "2015"
+        },
+        "id": 7184,
+        "description": "Void where prohibited."
+    }
+]
