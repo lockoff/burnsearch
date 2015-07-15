@@ -505,7 +505,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <groups>org.burnsearch.test.SlowTest</groups>
+                    <groups>org.springframework.boot.test.IntegrationTest</groups>
                 </configuration>
             </plugin>
             <plugin>
@@ -515,7 +515,7 @@
                     <argLine>-Xmx256m</argLine>
                     <!-- Force alphabetical order to have a reproducible build -->
                     <runOrder>alphabetical</runOrder>
-                    <excludedGroups>org.burnsearch.test.SlowTest</excludedGroups>
+                    <excludedGroups>org.springframework.boot.test.IntegrationTest</excludedGroups>
                 </configuration>
             </plugin>
             <plugin>

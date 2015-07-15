@@ -1,7 +1,6 @@
 package org.burnsearch.service;
 
 import org.burnsearch.Application;
-import org.burnsearch.test.SlowTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -19,7 +18,7 @@ import javax.inject.Inject;
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest
-@Category(SlowTest.class)
+@Category(IntegrationTest.class)
 public class EtlServiceIntegrationTest {
 
   @Inject
