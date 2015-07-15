@@ -11,7 +11,6 @@ import org.burnsearch.service.UserService;
 import org.burnsearch.web.rest.dto.UserDTO;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -49,7 +48,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest
-@Category(IntegrationTest.class)
 public class AccountResourceIntegrationTest {
 
     @Inject

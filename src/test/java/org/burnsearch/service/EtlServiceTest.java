@@ -37,15 +37,11 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Tests that the ETL service can index a set of known documents.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@WebAppConfiguration
-@IntegrationTest
 public class EtlServiceTest {
 
   @InjectMocks
@@ -54,24 +50,17 @@ public class EtlServiceTest {
   @Mock
   private RestTemplate restTemplate;
 
-  @Inject
+  @Mock
   private CampSearchRepository campSearchRepository;
 
-  @Inject
+  @Mock
   private EventSearchRepository eventSearchRepository;
 
-  @Inject
+  @Mock
   private ElasticsearchTemplate template;
 
-  @Value("${etl.playaEventsCamp}")
   private String playaEventsCampUrl;
-
-  @Value("${etl.playaEventsEvent}")
   private String playaEventsEventUrl;
-
-  @Inject
-  private ObjectMapper objectMapper;
-
   private CampEtlDto[] campDtos;
   private EventEtlDto[] eventDtos;
   private List<Event> expectedEvents;
@@ -80,12 +69,11 @@ public class EtlServiceTest {
   @Before
   public void setUp() throws Exception {
     MockitoAnnotations.initMocks(this);
-    ReflectionTestUtils.setField(etlService, "campSearchRepository", campSearchRepository);
-    ReflectionTestUtils.setField(etlService, "eventSearchRepository", eventSearchRepository);
-    ReflectionTestUtils.setField(etlService, "elasticsearchTemplate", template);
+    playaEventsCampUrl = "http://example.com/camps";
+    playaEventsEventUrl = "http://example.com/event";
     ReflectionTestUtils.setField(etlService, "playaEventsCampUrl", playaEventsCampUrl);
     ReflectionTestUtils.setField(etlService, "playaEventsEventUrl", playaEventsEventUrl);
-
+    ObjectMapper objectMapper = new ObjectMapper();
     List<CampEtlDto> campEtlDtoList = objectMapper.readValue(getJsonString("camps.json"),
         new TypeReference<List<CampEtlDto>>() {});
     campDtos = campEtlDtoList.toArray(new CampEtlDto[campEtlDtoList.size()]);
@@ -122,8 +110,17 @@ public class EtlServiceTest {
         EventEtlDto[].class)).thenReturn(eventDtos);
     when(restTemplate.getForObject(playaEventsCampUrl,
         CampEtlDto[].class)).thenReturn(campDtos);
+
     etlService.indexCampsAndEvents();
-    assertEquals("Wrong number of events.", expectedEvents.size(), eventSearchRepository.count());
-    assertEquals("Wrong number of camps.", expectedCamps.size(), campSearchRepository.count());
+
+    for (Camp camp : expectedCamps) {
+      verify(campSearchRepository, times(1)).index(camp);
+    }
+    for (Event event: expectedEvents) {
+      verify(eventSearchRepository, times(1)).index(event);
+    }
+    verify(campSearchRepository, times(1)).deleteAll();
+    verify(eventSearchRepository, times(1)).deleteAll();
+    verify(template, times(1)).refresh(Camp.class, true);
   }
 }

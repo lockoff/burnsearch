@@ -499,14 +499,11 @@
                         </goals>
                         <configuration>
                             <includes>
-                                <include>**/*.class</include>
+                                <include>**/*IntegrationTest.class</include>
                             </includes>
                         </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <groups>org.springframework.boot.test.IntegrationTest</groups>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -515,7 +512,9 @@
                     <argLine>-Xmx256m</argLine>
                     <!-- Force alphabetical order to have a reproducible build -->
                     <runOrder>alphabetical</runOrder>
-                    <excludedGroups>org.springframework.boot.test.IntegrationTest</excludedGroups>
+                    <excludes>
+                        <exclude>**/*IntegrationTest.class</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
