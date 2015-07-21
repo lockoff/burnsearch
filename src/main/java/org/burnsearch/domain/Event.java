@@ -19,13 +19,13 @@ public class Event {
   @Id
   private Long id;
 
-  @Field(type = FieldType.String, indexAnalyzer = "english")
+  @Field(type = FieldType.String, indexAnalyzer = "english", searchAnalyzer = "english")
   private String description;
 
-  @Field(type = FieldType.String, indexAnalyzer = "english")
+  @Field(type = FieldType.String, indexAnalyzer = "english", searchAnalyzer = "english")
   private String printDescription;
 
-  @Field(type = FieldType.String, indexAnalyzer = "english")
+  @Field(type = FieldType.String, indexAnalyzer = "english", searchAnalyzer = "english")
   private String title;
 
   @Field(type = FieldType.Object)
@@ -52,7 +52,7 @@ public class Event {
   @Field(type = FieldType.Boolean)
   private boolean isCheckLocation;
 
-  @Field(type = FieldType.String, indexAnalyzer = "standard")
+  @Field(type = FieldType.String, indexAnalyzer = "standard", searchAnalyzer = "standard")
   private String otherLocation;
 
   @Field(type = FieldType.Nested)

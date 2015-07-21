@@ -10,10 +10,10 @@ public class LocatedAtArt {
   @Field(type = FieldType.Long)
   private Long id;
 
-  @Field(type = FieldType.String, indexAnalyzer = "standard")
+  @Field(type = FieldType.String, indexAnalyzer = "standard", searchAnalyzer = "standard")
   private String locationString;
 
-  @Field(type = FieldType.String, indexAnalyzer = "whitespace")
+  @Field(type = FieldType.String, indexAnalyzer = "whitespace", searchAnalyzer = "whitespace")
   private String name;
 
   public Long getId() {

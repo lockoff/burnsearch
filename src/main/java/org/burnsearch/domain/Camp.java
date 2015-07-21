@@ -20,7 +20,7 @@ public class Camp {
   @Id
   private Long id;
 
-  @Field(type = FieldType.String, indexAnalyzer = "whitespace")
+  @Field(type = FieldType.String, indexAnalyzer = "whitespace", searchAnalyzer = "whitespace")
   private String name;
 
   @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
@@ -29,7 +29,7 @@ public class Camp {
   @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
   private String contactEmail;
 
-  @Field(type = FieldType.String, indexAnalyzer = "english")
+  @Field(type = FieldType.String, indexAnalyzer = "english", searchAnalyzer = "english")
   private String description;
 
   @Field(type = FieldType.Date, format = DateFormat.year)
