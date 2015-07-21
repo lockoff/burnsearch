@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('burnsearchApp', ['LocalStorageModule', 
+angular.module('burnsearchApp', ['LocalStorageModule',
                'ui.bootstrap', // for modal dialogs
     'ngResource', 'ui.router', 'ngCookies', 'ngCacheBuster', 'infinite-scroll'])
 
@@ -14,7 +14,7 @@ angular.module('burnsearchApp', ['LocalStorageModule',
             if (Principal.isIdentityResolved()) {
                 Auth.authorize();
             }
-            
+
         });
 
         $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
@@ -38,6 +38,34 @@ angular.module('burnsearchApp', ['LocalStorageModule',
                 $state.go($rootScope.previousStateName, $rootScope.previousStateParams);
             }
         };
+        function selectBackground() {
+            var images = ['playa-ground.jpg', 'embrace-burn.jpg', 'buddha-on-wheels.jpg'];
+            var titles = ['playa', 'Embrace Burn', 'Buddha on Wheels'];
+            var photographers = ['Mario Covic', 'Anne Staveley', 'Dust to Ashes'];
+            var contacts = ['mailto:mariocovicphotos@gmail.com',
+                'mailto:annestaveley@gmail.com',
+                'http://www.dusttoashes.com/'];
+            var years = ['2010', '2014', '2014'];
+            var imageChoice = Math.floor(Math.random() * images.length);
+            $rootScope.backgroundImage = images[imageChoice];
+            $rootScope.backgroundTitle = titles[imageChoice];
+            $rootScope.backgroundPhotographer = photographers[imageChoice];
+            $rootScope.backgroundContact = contacts[imageChoice];
+            $rootScope.backgroundYear = years[imageChoice];
+        }
+        function setBackground(mediaQuery) {
+            if (mediaQuery.matches) {
+                console.log("Matches!");
+                angular.element('body').css({
+                    'background-image': 'url("../assets/images/' + $rootScope.backgroundImage + '")'});
+            } else {
+                console.log("Does not match!");
+                angular.element('body').css({'background-image': ''});
+            }
+            return mediaQuery;
+        }
+        selectBackground();
+        setBackground($window.matchMedia('all and (min-width: 768px)')).addListener(setBackground);
     })
     .factory('authInterceptor', function ($rootScope, $q, $location, localStorageService) {
         return {
@@ -45,11 +73,11 @@ angular.module('burnsearchApp', ['LocalStorageModule',
             request: function (config) {
                 config.headers = config.headers || {};
                 var token = localStorageService.get('token');
-                
+
                 if (token && token.expires_at && token.expires_at > new Date().getTime()) {
                     config.headers.Authorization = 'Bearer ' + token.access_token;
                 }
-                
+
                 return config;
             }
         };
@@ -96,5 +124,5 @@ angular.module('burnsearchApp', ['LocalStorageModule',
         $httpProvider.interceptors.push('authExpiredInterceptor');
 
         $httpProvider.interceptors.push('authInterceptor');
-        
+
     });
