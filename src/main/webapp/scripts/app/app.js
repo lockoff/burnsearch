@@ -55,11 +55,9 @@ angular.module('burnsearchApp', ['LocalStorageModule',
         }
         function setBackground(mediaQuery) {
             if (mediaQuery.matches) {
-                console.log("Matches!");
                 angular.element('body').css({
                     'background-image': 'url("../assets/images/' + $rootScope.backgroundImage + '")'});
             } else {
-                console.log("Does not match!");
                 angular.element('body').css({'background-image': ''});
             }
             return mediaQuery;

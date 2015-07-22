@@ -40,5 +40,5 @@ swagger:
     licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.html
 
 etl:
-    playaEventsCamp: http://playaevents.burningman.org/api/0.2/2015/camp
-    playaEventsEvent: http://playaevents.burningman.org/api/0.2/2015/event
+    playaEventsCamp: http://playaevents.burningman.org/api/0.2/2015/camp/
+    playaEventsEvent: http://playaevents.burningman.org/api/0.2/2015/event/

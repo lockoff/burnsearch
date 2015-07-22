@@ -54,6 +54,11 @@ Developement Ribbon
     padding-top: 15px;
 }
 
+.contact-table {
+    border-bottom: 1px solid #ddd;
+    overflow: hidden;
+}
+
 /* ==========================================================================
 Version number in navbar
 ========================================================================== */
