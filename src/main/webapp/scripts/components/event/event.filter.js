@@ -47,4 +47,10 @@ angular.module('burnsearchApp')
                 return event.otherLocation;
             }
         }
+    })
+    .filter('hostingCampDisplay', function() {
+        return function(hostingCamp) {
+            if (!hostingCamp) return "";
+            return "Hosted by " + hostingCamp.name;
+        }
     });
