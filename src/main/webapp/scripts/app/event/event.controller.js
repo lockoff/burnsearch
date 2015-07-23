@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('burnsearchApp')
-    .controller('CampController', function($scope, camp) {
-        $scope.camp = camp;
+    .controller('EventController', function($scope, event) {
+        $scope.event = event;
     });

@@ -2,8 +2,8 @@
 
 /**
  * The URL for this state takes the ID of a camp as a parameter. We get the data for the camp with
- * that ID and pass it to the controller. We pass null to the controller if there was an error
- * retrieving the camp. If the camp could not be found, the empty string is returned.
+ * that ID and pass it to the controller. If the camp could not be found, the empty string is
+ * returned.
  */
 angular.module('burnsearchApp')
     .config(function ($stateProvider) {

@@ -1,28 +1,28 @@
 'use strict';
 
 /**
- * The URL for this state takes the ID of a camp as a parameter. We get the data for the camp with
- * that ID and pass it to the controller. We pass null to the controller if there was an error
- * retrieving the camp. If the camp could not be found, the empty string is returned.
+ * The URL for this state takes the ID of an event as a parameter. We get the data for the event
+ * with that ID and pass it to the controller. If the event could not be found, the empty string is
+ * returned.
  */
 angular.module('burnsearchApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('camp', {
+            .state('event', {
                 parent: 'site',
-                url: '/camp/:campId',
+                url: '/event/:eventId',
                 data: {
                     roles: []
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/camp/camp.html',
-                        controller: 'CampController'
+                        templateUrl: 'scripts/app/event/event.html',
+                        controller: 'EventController'
                     }
                 },
                 resolve: {
-                    camp: ['$http', '$stateParams', function ($http, $stateParams) {
-                        return $http.get('/api/camps/' + $stateParams.campId).then(
+                    event: ['$http', '$stateParams', function ($http, $stateParams) {
+                        return $http.get('/api/events/' + $stateParams.eventId).then(
                             function(response) {
                                 return response.data;
                             }
