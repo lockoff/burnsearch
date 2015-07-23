@@ -38,7 +38,7 @@ public class Event {
   private String slug;
 
   @Field(type = FieldType.Boolean)
-  private boolean isAllDay;
+  private boolean allDay;
 
   @Field(type = FieldType.Date, format = DateFormat.year)
   private Date year;
@@ -50,7 +50,7 @@ public class Event {
   private LocatedAtArt locatedAtArt;
 
   @Field(type = FieldType.Boolean)
-  private boolean isCheckLocation;
+  private boolean checkLocation;
 
   @Field(type = FieldType.String, indexAnalyzer = "standard", searchAnalyzer = "standard")
   private String otherLocation;
@@ -99,12 +99,12 @@ public class Event {
     this.url = url;
   }
 
-  public boolean isAllDay() {
-    return isAllDay;
+  public boolean getAllDay() {
+    return allDay;
   }
 
-  public void setIsAllDay(boolean isAllDay) {
-    this.isAllDay = isAllDay;
+  public void setAllDay(boolean isAllDay) {
+    this.allDay = isAllDay;
   }
 
   public Date getYear() {
@@ -115,12 +115,12 @@ public class Event {
     this.year = year;
   }
 
-  public boolean isCheckLocation() {
-    return isCheckLocation;
+  public boolean getCheckLocation() {
+    return checkLocation;
   }
 
-  public void setIsCheckLocation(boolean isCheckLocation) {
-    this.isCheckLocation = isCheckLocation;
+  public void setCheckLocation(boolean isCheckLocation) {
+    this.checkLocation = isCheckLocation;
   }
 
   public String getOtherLocation() {
@@ -178,8 +178,8 @@ public class Event {
 
     Event event = (Event) o;
 
-    if (isAllDay != event.isAllDay) return false;
-    if (isCheckLocation != event.isCheckLocation) return false;
+    if (allDay != event.allDay) return false;
+    if (checkLocation != event.checkLocation) return false;
     if (id != null ? !id.equals(event.id) : event.id != null) return false;
     if (description != null ? !description.equals(event.description) : event.description != null)
       return false;
@@ -210,11 +210,11 @@ public class Event {
     result = 31 * result + (hostingCamp != null ? hostingCamp.hashCode() : 0);
     result = 31 * result + (url != null ? url.hashCode() : 0);
     result = 31 * result + (slug != null ? slug.hashCode() : 0);
-    result = 31 * result + (isAllDay ? 1 : 0);
+    result = 31 * result + (allDay ? 1 : 0);
     result = 31 * result + (year != null ? year.hashCode() : 0);
     result = 31 * result + (eventType != null ? eventType.hashCode() : 0);
     result = 31 * result + (locatedAtArt != null ? locatedAtArt.hashCode() : 0);
-    result = 31 * result + (isCheckLocation ? 1 : 0);
+    result = 31 * result + (checkLocation ? 1 : 0);
     result = 31 * result + (otherLocation != null ? otherLocation.hashCode() : 0);
     result = 31 * result + (occurrenceSet != null ? occurrenceSet.hashCode() : 0);
     return result;
@@ -230,11 +230,11 @@ public class Event {
         ", hostingCamp=" + hostingCamp +
         ", url='" + url + '\'' +
         ", slug='" + slug + '\'' +
-        ", isAllDay=" + isAllDay +
+        ", allDay=" + allDay +
         ", year=" + year +
         ", eventType=" + eventType +
         ", locatedAtArt=" + locatedAtArt +
-        ", isCheckLocation=" + isCheckLocation +
+        ", checkLocation=" + checkLocation +
         ", otherLocation='" + otherLocation + '\'' +
         ", occurrenceSet=" + occurrenceSet +
         '}';

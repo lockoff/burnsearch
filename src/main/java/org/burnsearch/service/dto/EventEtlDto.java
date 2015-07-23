@@ -182,8 +182,8 @@ public class EventEtlDto {
     event.setTitle(title);
     event.setUrl(url);
     event.setYear(year.toYearDate());
-    event.setIsAllDay(allDay);
-    event.setIsCheckLocation(checkLocation);
+    event.setAllDay(allDay);
+    event.setCheckLocation(checkLocation);
     event.setSlug(slug);
     event.setOtherLocation(otherLocation);
     event.setEventType(eventType.toEventTypeDocument());

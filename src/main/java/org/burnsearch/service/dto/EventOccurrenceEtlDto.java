@@ -7,12 +7,17 @@ import org.burnsearch.domain.EventOccurrence;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 /**
  * DTO recording the time an event occurs, retrieved from the Burning Man Events API.
  */
 public class EventOccurrenceEtlDto {
-  private static DateFormat OCCURRENCE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+  private static DateFormat OCCURRENCE_DATE_FORMAT;
+  static {
+    OCCURRENCE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    OCCURRENCE_DATE_FORMAT.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+  }
 
   @JsonProperty("start_time")
   private String startTime;

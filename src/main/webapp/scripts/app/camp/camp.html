@@ -8,17 +8,17 @@
             </div>
             <div class="panel-body">
                 <p ng-show="!camp">The requested camp could not be found.</p>
-                <table class="table table-condensed contact-table" ng-show="camp.url || camp.contactEmail">
+                <table class="table table-condensed info-table" ng-show="camp.url || camp.contactEmail">
                     <tr ng-show="camp.url">
                         <td>Website:</td>
-                        <td><a href="{{camp.url}}">{{camp.url}}</a></td>
+                        <td><a href="{{camp.url}}">{{camp.url | characters: 25:false}}</a></td>
                     </tr>
                     <tr ng-show="camp.contactEmail">
                         <td>Contact:</td>
                         <td><a href="mailto:{{camp.contactEmail}}">{{camp.contactEmail}}</a></td>
                     </tr>
                 </table>
-                <p ng-show="camp">{{camp.description == 'None' ? "No description available." : camp.description}}</p>
+                <p ng-show="camp">{{camp.description | description}}</p>
             </div>
         </div>
     </div>
