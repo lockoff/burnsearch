@@ -3,6 +3,7 @@
 angular.module('burnsearchApp')
     .filter('locatedAtArt', function () {
         return function(locatedAtArt) {
+            if (!locatedAtArt) return "";
             var locationString  = undefined;
             if (locatedAtArt.locationString && locatedAtArt.locationString != "Unknown") {
                 locationString = " (" + locatedAtArt.locationString + ")";
@@ -33,6 +34,17 @@ angular.module('burnsearchApp')
                     return eventType.label + " Event";
                 default:
                     return eventType.label;
+            }
+        }
+    })
+    .filter('eventLocation', function() {
+        return function(event) {
+            if (!event) return "";
+            if (event.checkLocation) {
+                return "Check at Playa Info";
+            }
+            if (event.otherLocation) {
+                return event.otherLocation;
             }
         }
     });

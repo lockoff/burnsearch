@@ -21,6 +21,10 @@
                         <td>Art Piece:</td>
                         <td>{{event.locatedAtArt | locatedAtArt}}</td>
                     </tr>
+                    <tr ng-show="event.checkLocation || event.otherLocation">
+                        <td>Location:</td>
+                        <td>{{event | eventLocation}}</td>
+                    </tr>
                 </table>
                 <p ng-show="event">{{event.description | description}}</p>
                 <p>{{event}}</p>
