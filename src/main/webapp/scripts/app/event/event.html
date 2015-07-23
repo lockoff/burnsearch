@@ -8,26 +8,29 @@
             </div>
             <div class="panel-body">
                 <p ng-show="!event">The requested event could not be found.</p>
-                <table class="table table-condensed info-table" ng-show="showInfoTable">
+                <table class="table table-condensed info-table">
                     <tr ng-show="event.url">
-                        <td>Website:</td>
+                        <td class="text-right text-danger">Website:</td>
                         <td><a href="{{event.url}}">{{event.url | characters: 25:false}}</a></td>
                     </tr>
                     <tr ng-show="event.hostingCamp">
-                        <td>Hosting Camp:</td>
+                        <td class="text-right">Hosting Camp:</td>
                         <td><a ui-sref="camp({campId: event.hostingCamp.id})">{{event.hostingCamp.name}}</a></td>
                     </tr>
                     <tr ng-show="event.locatedAtArt">
-                        <td>Art Piece:</td>
+                        <td class="text-right">Art Piece:</td>
                         <td>{{event.locatedAtArt | locatedAtArt}}</td>
                     </tr>
                     <tr ng-show="event.checkLocation || event.otherLocation">
-                        <td>Location:</td>
+                        <td class="text-right">Location:</td>
                         <td>{{event | eventLocation}}</td>
+                    </tr>
+                    <tr ng-repeat="occurrence in event.occurrenceSet">
+                        <td class="text-right">{{occurrence.startTime | dateString}}:</td>
+                        <td>{{occurrence.startTime | time}} - {{occurrence.endTime | time}}</td>
                     </tr>
                 </table>
                 <p ng-show="event">{{event.description | description}}</p>
-                <p>{{event}}</p>
             </div>
         </div>
     </div>
