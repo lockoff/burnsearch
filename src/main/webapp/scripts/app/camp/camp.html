@@ -4,20 +4,20 @@
             <div class="panel-heading">
                 <h3 class="panel-title" ng-show="!camp">Camp Not Found!</h3>
                 <h3 class="panel-title" ng-show="camp">{{camp.name}}</h3>
-                <h6>Camp at Burning Man 2015</h6>
+                <h6 ng-show="camp">Camp at Burning Man 2015</h6>
+                <div class="btn-toolbar" role="toolbar" aria-label="Camp Info Toolbar" ng-show="camp.url || camp.contactEmail">
+                    <div class="btn-group pull-left" role="group" aria-label="Camp Info Links" ng-show="camp.url || camp.contactEmail">
+                        <a class="btn btn-default" aria-label="Camp Website" ng-show="camp.url" href="{{camp.url}}" target="_blank">
+                            <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-default" aria-label="Camp Contact" ng-show="camp.contactEmail" href="mailto:{{camp.contactEmail}}">
+                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="panel-body">
                 <p ng-show="!camp">The requested camp could not be found.</p>
-                <table class="table table-condensed info-table" ng-show="camp.url || camp.contactEmail">
-                    <tr ng-show="camp.url">
-                        <td>Website:</td>
-                        <td><a href="{{camp.url}}">{{camp.url | characters: 25:false}}</a></td>
-                    </tr>
-                    <tr ng-show="camp.contactEmail">
-                        <td>Contact:</td>
-                        <td><a href="mailto:{{camp.contactEmail}}">{{camp.contactEmail}}</a></td>
-                    </tr>
-                </table>
                 <p ng-show="camp">{{camp.description | description}}</p>
             </div>
         </div>
