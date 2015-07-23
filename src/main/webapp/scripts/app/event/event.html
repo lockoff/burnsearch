@@ -22,21 +22,15 @@
                         <label class="btn btn-default" aria-label="Event Schedule" ng-model="eventInfoTab" btn-radio="'Schedule'">
                             <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                         </label>
+                        <label class="btn btn-default" aria-label="Event Location" ng-model="eventInfoTab" btn-radio="'Location'">
+                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                        </label>
                     </div>
                 </div>
             </div>
             <div class="panel-body" collapse="eventInfoTab != 'Description'">
                 <p ng-show="!event">The requested event could not be found.</p>
-                <table class="table table-condensed info-table">
-                    <tr ng-show="event.locatedAtArt">
-                        <td class="text-right">Art Piece:</td>
-                        <td>{{event.locatedAtArt | locatedAtArt}}</td>
-                    </tr>
-                    <tr ng-show="event.checkLocation || event.otherLocation">
-                        <td class="text-right">Location:</td>
-                        <td>{{event | eventLocation}}</td>
-                    </tr>
-                </table>
+                <h5 ng-show="event">Description</h5>
                 <p ng-show="event">{{event.description | description}}</p>
             </div>
             <div class="panel-body" collapse="eventInfoTab != 'Schedule'">
@@ -45,6 +39,24 @@
                     <tr ng-repeat="occurrence in event.occurrenceSet">
                         <td class="text-right">{{occurrence.startTime | dateString}}:</td>
                         <td>{{occurrence.startTime | time}} - {{occurrence.endTime | time}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-body" collapse="eventInfoTab != 'Location'">
+                <h5>Location Info</h5>
+                <p class="text-warning" ng-show="event.checkLocation">Check Directory at Playa Info for Camp Location</p>
+                <table class="table table-condensed info-table">
+                    <tr ng-show="event.hostingCamp">
+                        <td class="text-right">Hosting Camp:</td>
+                        <td><a ui-sref="camp({campId: event.hostingCamp.id})">{{event.hostingCamp.name}}</a></td>
+                    </tr>
+                    <tr ng-show="event.locatedAtArt">
+                        <td class="text-right">Art Piece:</td>
+                        <td>{{event.locatedAtArt | locatedAtArt}}</td>
+                    </tr>
+                    <tr ng-show="event.otherLocation">
+                        <td class="text-right">Other Location:</td>
+                        <td>{{event.otherLocation}}</td>
                     </tr>
                 </table>
             </div>
