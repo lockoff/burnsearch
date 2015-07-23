@@ -19,4 +19,20 @@ angular.module('burnsearchApp')
             }
             return description;
         }
+    })
+    .filter('eventType', function() {
+        return function(eventType) {
+            if (!eventType || eventType.label == 'None') {
+                return 'Event';
+            }
+            switch(eventType.label) {
+                case "Adult-oriented":
+                case "Food":
+                case "Kid-friendly":
+                case "Care/Support":
+                    return eventType.label + " Event";
+                default:
+                    return eventType.label;
+            }
+        }
     });

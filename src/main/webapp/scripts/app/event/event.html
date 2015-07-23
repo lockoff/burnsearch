@@ -4,7 +4,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title" ng-show="!event">Event Not Found!</h3>
                 <h3 class="panel-title" ng-show="event">{{event.title}}</h3>
-                <h6>Event at Burning Man 2015</h6>
+                <h6>{{event.eventType | eventType}} at Burning Man 2015</h6>
             </div>
             <div class="panel-body">
                 <p ng-show="!event">The requested event could not be found.</p>
