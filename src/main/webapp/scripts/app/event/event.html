@@ -4,19 +4,18 @@
             <div class="panel-heading">
                 <h3 class="panel-title" ng-show="!event">Event Not Found!</h3>
                 <h3 class="panel-title" ng-show="event">{{event.title}}</h3>
-                <h6>{{event.eventType | eventType}} at Burning Man 2015
+                <h6 ng-show="event">{{event.eventType | eventType}} at Burning Man 2015
                     <br ng-show="event.hostingCamp"/>{{event.hostingCamp | hostingCampDisplay}}</h6>
-                <button type="button" class="btn btn-default" aria-label="Camp" ng-show="event.hostingCamp" ui-sref="camp({campId: event.hostingCamp.id})">
+                <a class="btn btn-default" aria-label="Event Camp" ng-show="event.hostingCamp" ui-sref="camp({campId: event.hostingCamp.id})">
                     <span class="glyphicon glyphicon-tent" aria-hidden="true"></span>
-                </button>
+                </a>
+                <a class="btn btn-default" aria-label="Event Website" ng-show="event.url" href="{{event.url}}" target="_blank">
+                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                </a>
             </div>
             <div class="panel-body">
                 <p ng-show="!event">The requested event could not be found.</p>
                 <table class="table table-condensed info-table">
-                    <tr ng-show="event.url">
-                        <td class="text-right text-danger">Website:</td>
-                        <td><a href="{{event.url}}">{{event.url | characters: 25:false}}</a></td>
-                    </tr>
                     <tr ng-show="event.locatedAtArt">
                         <td class="text-right">Art Piece:</td>
                         <td>{{event.locatedAtArt | locatedAtArt}}</td>
