@@ -22,18 +22,19 @@ angular.module('burnsearchApp')
         }
     })
     .filter('eventType', function() {
-        return function(eventType) {
+        return function(eventType, allDay) {
+            var prefix = allDay ? "All Day " : "";
             if (!eventType || eventType.label == 'None') {
-                return 'Event';
+                return prefix + 'Event';
             }
             switch(eventType.label) {
                 case "Adult-oriented":
                 case "Food":
                 case "Kid-friendly":
                 case "Care/Support":
-                    return eventType.label + " Event";
+                    return prefix + eventType.label + " Event";
                 default:
-                    return eventType.label;
+                    return prefix + eventType.label;
             }
         }
     })

@@ -4,7 +4,7 @@
             <div class="panel-heading clearfix">
                 <h3 class="panel-title" ng-show="!event">Event Not Found!</h3>
                 <h3 class="panel-title" ng-show="event">{{event.title}}</h3>
-                <h6 ng-show="event">{{event.eventType | eventType}} at Burning Man 2015
+                <h6 ng-show="event">{{event.eventType | eventType: event.allDay}} at Burning Man 2015
                     <br ng-show="event.hostingCamp"/>{{event.hostingCamp | hostingCampDisplay}}</h6>
                 <div class="btn-toolbar" role="toolbar" aria-label="Event Info Toolbar" ng-show="event">
                     <div class="btn-group pull-left" role="group" aria-label="Event Info Links" ng-visible="event.hostingCamp || event.url">
