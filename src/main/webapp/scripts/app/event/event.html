@@ -6,7 +6,7 @@
                 <h3 class="panel-title" ng-show="event">{{event.title}}</h3>
                 <h6>{{event.eventType | eventType}} at Burning Man 2015
                     <br ng-show="event.hostingCamp"/>{{event.hostingCamp | hostingCampDisplay}}</h6>
-                <button type="button" class="btn btn-default" aria-label="Camp" ui-sref="camp({campId: event.hostingCamp.id})">
+                <button type="button" class="btn btn-default" aria-label="Camp" ng-show="event.hostingCamp" ui-sref="camp({campId: event.hostingCamp.id})">
                     <span class="glyphicon glyphicon-tent" aria-hidden="true"></span>
                 </button>
             </div>
