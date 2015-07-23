@@ -8,10 +8,14 @@
             </div>
             <div class="panel-body">
                 <p ng-show="!event">The requested event could not be found.</p>
-                <table class="table table-condensed contact-table" ng-show="event.url">
+                <table class="table table-condensed contact-table" ng-show="event.url || event.hostingCamp">
                     <tr ng-show="event.url">
                         <td>Website:</td>
                         <td><a href="{{event.url}}">{{event.url}}</a></td>
+                    </tr>
+                    <tr ng-show="event.hostingCamp">
+                        <td>Hosting Camp:</td>
+                        <td><a ui-sref="camp({campId: event.hostingCamp.id})">{{event.hostingCamp.name}}</a></td>
                     </tr>
                 </table>
                 <p ng-show="event">{{event.description == 'None' || !event.description ? "No description available." : event.description}}</p>
