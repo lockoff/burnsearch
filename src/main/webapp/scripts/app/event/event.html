@@ -6,16 +6,26 @@
                 <h3 class="panel-title" ng-show="event">{{event.title}}</h3>
                 <h6 ng-show="event">{{event.eventType | eventType}} at Burning Man 2015
                     <br ng-show="event.hostingCamp"/>{{event.hostingCamp | hostingCampDisplay}}</h6>
-                <div class="btn-group pull-left" ng-visible="event.hostingCamp || event.url">
-                    <a class="btn btn-default" aria-label="Event Camp" ng-show="event.hostingCamp" ui-sref="camp({campId: event.hostingCamp.id})">
-                        <span class="glyphicon glyphicon-tent" aria-hidden="true"></span>
-                    </a>
-                    <a class="btn btn-default" aria-label="Event Website" ng-show="event.url" href="{{event.url}}" target="_blank">
-                        <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                    </a>
+                <div class="btn-toolbar" role="toolbar" aria-label="Event Info Toolbar" ng-show="event">
+                    <div class="btn-group pull-left" role="group" aria-label="Event Info Links" ng-visible="event.hostingCamp || event.url">
+                        <a class="btn btn-default" aria-label="Event Camp" ng-show="event.hostingCamp" ui-sref="camp({campId: event.hostingCamp.id})">
+                            <span class="glyphicon glyphicon-tent" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-default" aria-label="Event Website" ng-show="event.url" href="{{event.url}}" target="_blank">
+                            <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    <div class="btn-group pull-right" role="group" aria-label="Event Info Tabs">
+                        <label class="btn btn-default" aria-label="Event Description" ng-model="eventInfoTab" btn-radio="'Description'">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </label>
+                        <label class="btn btn-default" aria-label="Event Schedule" ng-model="eventInfoTab" btn-radio="'Schedule'">
+                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" collapse="eventInfoTab != 'Description'">
                 <p ng-show="!event">The requested event could not be found.</p>
                 <table class="table table-condensed info-table">
                     <tr ng-show="event.locatedAtArt">
@@ -26,12 +36,17 @@
                         <td class="text-right">Location:</td>
                         <td>{{event | eventLocation}}</td>
                     </tr>
+                </table>
+                <p ng-show="event">{{event.description | description}}</p>
+            </div>
+            <div class="panel-body" collapse="eventInfoTab != 'Schedule'">
+                <h5>Event Schedule</h5>
+                <table class="table table-condensed table-striped info-table">
                     <tr ng-repeat="occurrence in event.occurrenceSet">
                         <td class="text-right">{{occurrence.startTime | dateString}}:</td>
                         <td>{{occurrence.startTime | time}} - {{occurrence.endTime | time}}</td>
                     </tr>
                 </table>
-                <p ng-show="event">{{event.description | description}}</p>
             </div>
         </div>
     </div>
