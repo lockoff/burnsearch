@@ -8,7 +8,7 @@
             </div>
             <div class="panel-body">
                 <p ng-show="!event">The requested event could not be found.</p>
-                <table class="table table-condensed contact-table" ng-show="event.url || event.hostingCamp || event.locatedAtArt">
+                <table class="table table-condensed info-table" ng-show="event.url || event.hostingCamp || event.locatedAtArt">
                     <tr ng-show="event.url">
                         <td>Website:</td>
                         <td><a href="{{event.url}}">{{event.url}}</a></td>
