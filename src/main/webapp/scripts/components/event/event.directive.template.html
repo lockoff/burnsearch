@@ -1,5 +1,5 @@
 <div class="panel" ng-class="{'panel-danger': !event, 'panel-primary': event}">
-    <div class="panel-heading clearfix">
+<div class="panel-heading clearfix">
         <h3 class="panel-title" ng-show="!event">Event Not Found!</h3>
         <h3 class="panel-title" ng-show="event">{{event.title}}</h3>
         <h6 ng-show="event">{{event.eventType | eventType: event.allDay}} at Burning Man 2015
