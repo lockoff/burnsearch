@@ -72,10 +72,6 @@ Developement Ribbon
     }
 }
 
-/* Make the background of the panel containing search results transparent. */
-.panel-transparent {
-    background: transparent none;
-}
 /* ==========================================================================
 Browser Upgrade Prompt
 ========================================================================== */

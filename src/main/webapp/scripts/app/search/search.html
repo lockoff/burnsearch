@@ -10,10 +10,10 @@
                 <span class="glyphicon glyphicon-tent" aria-hidden="true"></span> Camps
             </label>
         </div>
-        <div class="panel-body" collapse="searchEntityTab != 'Events'">
+        <div collapse="searchEntityTab != 'Events'">
             <event-card ng-repeat="event in eventResults"/>
         </div>
-        <div class="panel-body" ui-view="camps" collapse="searchEntityTab != 'Camps'">
+        <div collapse="searchEntityTab != 'Camps'">
             <camp-card ng-repeat="camp in campResults"/>
         </div>
     </div>
