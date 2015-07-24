@@ -3,9 +3,11 @@ package org.burnsearch.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import org.burnsearch.domain.Event;
 import org.burnsearch.repository.search.EventSearchRepository;
+import org.burnsearch.web.rest.dto.SearchResultsDTO;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.http.MediaType;
@@ -42,12 +44,13 @@ public class EventResource {
       produces = MediaType.APPLICATION_JSON_VALUE
   )
   @Timed
-  public List<Event> searchByDescription(@RequestParam(value = "q") String description,
+  public SearchResultsDTO<Event> searchByDescription(@RequestParam(value = "q") String description,
       @RequestParam(value = "page", defaultValue = "0") int pageNumber,
       @RequestParam(value = "size", defaultValue = "10") int size) {
     QueryBuilder queryBuilder = new MatchQueryBuilder("description", description);
-    return eventSearchRepository
-        .search(queryBuilder, new PageRequest(pageNumber, size))
-        .getContent();
+    FacetedPage<Event> searchResults = eventSearchRepository
+        .search(queryBuilder, new PageRequest(pageNumber, size));
+    return new SearchResultsDTO<>(searchResults.getNumber(), searchResults.getTotalPages(),
+        searchResults.getContent());
   }
 }
