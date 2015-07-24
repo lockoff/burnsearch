@@ -2,8 +2,8 @@
 
 /**
  * The camp-card directive displays a Bootstrap panel containing information about a theme camp.
- * The template expects a variable named 'camp' to be in the scope. 'camp' should be a JSON object
- * of camp information retrieved from Elasticsearch.
+ * The template expects a variable named 'camp' to be in the parent scope. 'camp' should be a JSON
+ * object of camp information retrieved from Elasticsearch.
  */
 angular.module('burnsearchApp')
     .directive('campCard', function() {
