@@ -69,8 +69,12 @@ public class EventResourceTest {
     };
     when(mockRepository.search(argThat(queryMatcher), eq(pageRequest))).thenReturn(mockPage);
     when(mockPage.getContent()).thenReturn(expectedSearchResults);
+    when(mockPage.getTotalElements()).thenReturn(10L);
+    when(mockPage.getTotalPages()).thenReturn(10);
 
-    List<Event> actualSearchResults = eventResource.searchByDescription(descriptionQuery, 0, 10);
+    List<Event> actualSearchResults =
+        eventResource.searchByDescription(descriptionQuery, 0, 10)
+        .getContent();
     assertEquals("Wrong results list.", expectedSearchResults, actualSearchResults);
   }
 }

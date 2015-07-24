@@ -73,7 +73,7 @@ public class CampResourceTest {
 
     when(mockRepository.search(argThat(queryMatcher), eq(pageRequest))).thenReturn(page);
 
-    List<Camp> actualSearchResults = campResource.searchByDescription("query", 1, 3);
+    List<Camp> actualSearchResults = campResource.searchByDescription("query", 1, 3).getContent();
     assertEquals("Endpoint returns wrong search results.", expectedSearchResults, actualSearchResults);
   }
 }

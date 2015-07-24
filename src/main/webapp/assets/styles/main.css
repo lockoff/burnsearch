@@ -59,12 +59,17 @@ Developement Ribbon
     overflow: hidden;
 }
 
-/* ==========================================================================
-Version number in navbar
-========================================================================== */
-.navbar-version {
-    font-size: 10px;
-    color: #ccc
+/* Make the navbar search box stretch to fill a portion of the navbar. */
+.navbar-search-form {
+    display: inline-block;
+    width: 50%;
+}
+
+/* But once the navbar stacks, stretch the search bar to fill its row. */
+@media all and (max-width: 768px) {
+    .navbar-search-form {
+        width: 100%
+    }
 }
 
 /* ==========================================================================

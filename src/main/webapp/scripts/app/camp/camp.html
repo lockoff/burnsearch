@@ -1,25 +1,5 @@
 <div class="row">
     <div class="col-md-5 col-md-offset-7">
-        <div class="panel" ng-class="{'panel-danger': !camp, 'panel-primary': camp}">
-            <div class="panel-heading">
-                <h3 class="panel-title" ng-show="!camp">Camp Not Found!</h3>
-                <h3 class="panel-title" ng-show="camp">{{camp.name}}</h3>
-                <h6 ng-show="camp">Camp at Burning Man 2015</h6>
-                <div class="btn-toolbar" role="toolbar" aria-label="Camp Info Toolbar" ng-show="camp.url || camp.contactEmail">
-                    <div class="btn-group pull-left" role="group" aria-label="Camp Info Links" ng-show="camp.url || camp.contactEmail">
-                        <a class="btn btn-default" aria-label="Camp Website" ng-show="camp.url" href="{{camp.url}}" target="_blank">
-                            <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                        </a>
-                        <a class="btn btn-default" aria-label="Camp Contact" ng-show="camp.contactEmail" href="mailto:{{camp.contactEmail}}">
-                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-body">
-                <p ng-show="!camp">The requested camp could not be found.</p>
-                <p ng-show="camp">{{camp.description | description}}</p>
-            </div>
-        </div>
+        <camp-card/>
     </div>
 </div>

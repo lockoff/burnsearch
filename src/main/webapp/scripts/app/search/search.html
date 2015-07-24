@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-md-5 col-md-offset-7">
+        <div class="btn-group btn-group-justified" style="padding-bottom: 5px" role="group" aria-label="Search Entity Tabs">
+            <label class="btn btn-default" aria-label="Event Search" ng-model="searchEntityTab"
+                   btn-radio="'Events'" ng-click="transitionEvents()">
+                <span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Events
+            </label>
+            <label class="btn btn-default" aria-label="Camp Search" ng-model="searchEntityTab"
+                   btn-radio="'Camps'" ng-click="transitionCamps()">
+                <span class="glyphicon glyphicon-tent" aria-hidden="true"></span> Camps
+            </label>
+        </div>
+        <div ui-view="events"></div>
+        <div ui-view="camps"></div>
+    </div>
+</div>

@@ -4,6 +4,7 @@ angular.module('burnsearchApp')
     .controller('NavbarController', function ($scope, $location, $state, Auth, Principal) {
         $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.$state = $state;
+        $scope.query = '';
 
         $scope.logout = function () {
             Auth.logout();
