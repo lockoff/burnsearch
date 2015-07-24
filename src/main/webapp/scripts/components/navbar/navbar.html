@@ -8,7 +8,8 @@
                 <span class="icon-bar"></span>
             </button>
         </div>
-        <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="isAuthenticated()">
+        <div class="navbar-collapse collapse" id="navbar-collapse" ng-switch="isAuthenticated()">
+
             <ul class="nav navbar-nav nav-pills navbar-right">
                 <li ui-sref-active="active">
                     <a ui-sref="home">
@@ -80,6 +81,18 @@
                     </ul>
                 </li>
             </ul>
+            <form class="navbar-form">
+                <div class="form-group navbar-search-form">
+                    <div class="input-group" style="width:100%">
+                        <input type="text" class="form-control" placeholder="Search The Playa...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </nav>
