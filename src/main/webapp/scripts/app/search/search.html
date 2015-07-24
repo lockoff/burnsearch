@@ -1,22 +1,20 @@
 <div class="row">
     <div class="col-md-5 col-md-offset-7">
-        <div class="panel" ng-class="panel-default">
-            <div class="panel-heading">
-                <div class="btn-group btn-group-justified" role="group" aria-label="Search Entity Tabs">
-                    <label class="btn btn-default" aria-label="Event Search" ng-model="searchEntityTab" btn-radio="'Events'">
-                        <span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Events
-                    </label>
-                    <label class="btn btn-default" aria-label="Camp Search" ng-model="searchEntityTab" btn-radio="'Camps'">
-                        <span class="glyphicon glyphicon-tent" aria-hidden="true"></span> Camps
-                    </label>
-                </div>
-            </div>
-            <div class="panel-body" collapse="searchEntityTab != 'Events'">
-                <event-card ng-repeat="event in eventResults"/>
-            </div>
-            <div class="panel-body" ui-view="camps" collapse="searchEntityTab != 'Camps'">
-                <camp-card ng-repeat="camp in campResults"/>
-            </div>
+        <div class="btn-group btn-group-justified" role="group" aria-label="Search Entity Tabs">
+            <label class="btn btn-default" aria-label="Event Search" ng-model="searchEntityTab"
+                   btn-radio="'Events'">
+                <span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Events
+            </label>
+            <label class="btn btn-default" aria-label="Camp Search" ng-model="searchEntityTab"
+                   btn-radio="'Camps'">
+                <span class="glyphicon glyphicon-tent" aria-hidden="true"></span> Camps
+            </label>
+        </div>
+        <div class="panel-body" collapse="searchEntityTab != 'Events'">
+            <event-card ng-repeat="event in eventResults"/>
+        </div>
+        <div class="panel-body" ui-view="camps" collapse="searchEntityTab != 'Camps'">
+            <camp-card ng-repeat="camp in campResults"/>
         </div>
     </div>
 </div>
