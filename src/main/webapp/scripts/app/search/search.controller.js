@@ -3,6 +3,14 @@
 angular.module('burnsearchApp')
     .controller('SearchController', function($scope, $state, $stateParams) {
         $scope.searchEntityTab = 'Events';
-        $state.transitionTo('events', $stateParams)
+        $scope.transitionEvents = function() {
+            $state.transitionTo('events', $stateParams);
+        };
+
+        $scope.transitionCamps = function() {
+            $state.transitionTo('camps', $stateParams);
+        };
+
+        $scope.transitionEvents();
     });
 
