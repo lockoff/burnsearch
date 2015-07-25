@@ -7,13 +7,13 @@ import java.util.List;
  */
 public class SearchResultsDTO<T> {
   private final int currentPage;
-  private final int totalPages;
+  private final long totalItems;
   private final List<T> content;
 
 
-  public SearchResultsDTO(int currentPage, int totalPages, List<T> content) {
+  public SearchResultsDTO(int currentPage, long totalItems, List<T> content) {
     this.currentPage = currentPage;
-    this.totalPages = totalPages;
+    this.totalItems = totalItems;
     this.content = content;
   }
 
@@ -21,8 +21,8 @@ public class SearchResultsDTO<T> {
     return currentPage;
   }
 
-  public int getTotalPages() {
-    return totalPages;
+  public long getTotalItems() {
+    return totalItems;
   }
 
   public List<T> getContent() {

@@ -1,1 +1,11 @@
-<event-card ng-repeat="event in eventResults"/>
+<div class="row">
+    <div class="col-md-12">
+        <event-card ng-repeat="event in eventResults"/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 text-center">
+        <pagination class="pagination-sm" total-items="totalEvents" ng-model="$parent.currentEventsPage" ng-change="pageChanged()" max-size="5" rotate="false"></pagination>
+    </div>
+</div>
+

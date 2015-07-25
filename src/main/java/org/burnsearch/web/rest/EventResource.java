@@ -50,7 +50,8 @@ public class EventResource {
     QueryBuilder queryBuilder = new MatchQueryBuilder("description", description);
     FacetedPage<Event> searchResults = eventSearchRepository
         .search(queryBuilder, new PageRequest(pageNumber, size));
-    return new SearchResultsDTO<>(searchResults.getNumber(), searchResults.getTotalPages(),
+    return new SearchResultsDTO<>(searchResults.getNumber(),
+        searchResults.getTotalElements(),
         searchResults.getContent());
   }
 }
