@@ -5,7 +5,7 @@ angular.module('burnsearchApp')
         $stateProvider
             .state('search', {
                 parent: 'site',
-                url: "/search?q",
+                abstract: true,
                 data: {
                     roles: []
                 },
@@ -14,15 +14,6 @@ angular.module('burnsearchApp')
                         templateUrl: 'scripts/app/search/search.html',
                         controller: 'SearchController'
                     }
-                },
-                resolve: {
-                    campResults: ['$http', '$stateParams', function ($http, $stateParams) {
-                        return $http.get('/api/camps/search/description?q=' + $stateParams.q).then(
-                            function(response) {
-                                return response.data;
-                            }
-                        )
-                    }]
                 }
             });
     });

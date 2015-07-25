@@ -4,22 +4,22 @@ angular.module('burnsearchApp')
     .controller('SearchController', function($scope, $state, $stateParams) {
         $scope.searchEntityTab = 'Events';
 
-        $scope.lastEventsPage = -1;
-        $scope.currentEventsPage = 0;
+        $scope.lastEventsPage = 0;
+        $scope.currentEventsPage = 1;
         $scope.totalEvents = undefined;
 
-        $scope.lastCampsPage = -1;
-        $scope.currentCampsPage = 0;
+        $scope.lastCampsPage = 0;
+        $scope.currentCampsPage = 1;
         $scope.totalCamps = undefined;
 
         $scope.transitionEvents = function() {
-            $state.transitionTo('events', $stateParams);
+            $state.transitionTo('events', $state.params);
         };
 
         $scope.transitionCamps = function() {
-            $state.transitionTo('camps', $stateParams);
+            console.log($stateParams);
+            $state.transitionTo('camps', $state.params);
         };
 
-        $scope.transitionEvents();
     });
 

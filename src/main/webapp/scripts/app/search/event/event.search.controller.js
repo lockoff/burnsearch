@@ -5,11 +5,10 @@ angular.module('burnsearchApp')
         $scope.pageChanged = function () {
             if ($scope.$parent.currentEventsPage == $scope.$parent.lastEventsPage) return;
             console.log("getting a page");
-            $http.get('/api/events/search/description?q=' + $stateParams.q + "&page=" + $scope.$parent.currentEventsPage).then(
+            $http.get('/api/events/search/description?q=' + $stateParams.q + "&page=" + ($scope.$parent.currentEventsPage - 1)).then(
                 function(response) {
                     var eventResults = response.data;
                     $scope.$parent.eventResults = eventResults.content;
-                    $scope.$parent.currentEventsPage = eventResults.currentPage;
                     $scope.$parent.totalEvents = eventResults.totalItems;
                     $scope.$parent.lastEventsPage = $scope.$parent.currentEventsPage;
                     $window.scrollTo(0,0);
@@ -17,5 +16,6 @@ angular.module('burnsearchApp')
             )
         };
         $scope.pageChanged();
+        $scope.$parent.searchEntityTab = 'Events'
     });
 

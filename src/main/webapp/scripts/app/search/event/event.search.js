@@ -5,6 +5,7 @@ angular.module('burnsearchApp')
         $stateProvider
             .state('events', {
                 parent: 'search',
+                url: '/search/events?q',
                 data: {
                     roles: []
                 },
