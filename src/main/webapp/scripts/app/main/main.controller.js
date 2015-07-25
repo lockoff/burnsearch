@@ -6,8 +6,4 @@ angular.module('burnsearchApp')
             $scope.account = account;
             $scope.isAuthenticated = Principal.isAuthenticated;
         });
-        var states = $state.get();
-        for (var i = 0; i < states.length; i++) {
-            console.log(states[i]);
-        }
     });

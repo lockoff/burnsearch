@@ -17,7 +17,9 @@ angular.module('burnsearchApp')
         };
 
         $scope.transitionCamps = function() {
-            console.log($stateParams);
+            if (!$state.params.campsPageNum) {
+                $state.params.campsPageNum = 0;
+            }
             $state.transitionTo('camps', $state.params);
         };
 

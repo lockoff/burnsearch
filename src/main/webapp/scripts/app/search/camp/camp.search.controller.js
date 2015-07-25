@@ -1,21 +1,14 @@
 'use strict';
 
 angular.module('burnsearchApp')
-    .controller('CampSearchController', function($scope, $http, $stateParams, $window) {
+    .controller('CampSearchController', function($scope, $state, $stateParams, $window, campsPage) {
         $scope.pageChanged = function () {
-            if ($scope.$parent.currentCampsPage == $scope.$parent.lastCampsPage) return;
-            console.log("getting a camp page");
-            $http.get('/api/camps/search/description?q=' + $stateParams.q + "&page=" + ($scope.$parent.currentCampsPage - 1) ).then(
-                function(response) {
-                    var campResults = response.data;
-                    $scope.$parent.campResults = campResults.content;
-                    $scope.$parent.totalCamps = campResults.totalItems;
-                    $scope.$parent.lastCampsPage = $scope.$parent.currentCampsPage;
-                    $window.scrollTo(0,0);
-                }
-            )
+            $state.go('camps', {q: $stateParams.q, campsPageNum: $scope.currentPage - 1});
+            $window.scrollTo(0,0);
         };
-        $scope.pageChanged();
-        $scope.$parent.searchEntityTab = 'Camps'
+        $scope.currentPage = campsPage.pageNumber + 1;
+        $scope.totalCamps = campsPage.totalCamps;
+        $scope.campResults = campsPage.camps;
+        $scope.$parent.searchEntityTab = 'Camps';
     });
 
