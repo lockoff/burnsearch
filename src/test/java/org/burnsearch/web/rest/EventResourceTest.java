@@ -69,7 +69,7 @@ public class EventResourceTest {
     };
     when(mockRepository.search(argThat(queryMatcher), eq(pageRequest))).thenReturn(mockPage);
     when(mockPage.getContent()).thenReturn(expectedSearchResults);
-    when(mockPage.getNumber()).thenReturn(0);
+    when(mockPage.getTotalElements()).thenReturn(10L);
     when(mockPage.getTotalPages()).thenReturn(10);
 
     List<Event> actualSearchResults =

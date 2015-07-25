@@ -3,11 +3,13 @@ package org.burnsearch.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import org.burnsearch.domain.Camp;
 import org.burnsearch.repository.search.CampSearchRepository;
+import org.burnsearch.web.rest.dto.SearchResultsDTO;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.search.MultiMatchQuery;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,10 +40,13 @@ public class CampResource {
       produces = MediaType.APPLICATION_JSON_VALUE
   )
   @Timed
-  public List<Camp> searchByDescription(@RequestParam(value = "q") String query,
+  public SearchResultsDTO<Camp> searchByDescription(@RequestParam(value = "q") String query,
                                         @RequestParam(value = "page", defaultValue = "0") int page,
                                         @RequestParam(value = "size", defaultValue = "10") int size) {
     QueryBuilder qb = QueryBuilders.matchQuery("description", query);
-    return campSearchRepository.search(qb, new PageRequest(page, size)).getContent();
+    FacetedPage<Camp> searchResults = campSearchRepository.search(qb, new PageRequest(page, size));
+    return new SearchResultsDTO<>(searchResults.getNumber(),
+        searchResults.getTotalElements(),
+        searchResults.getContent());
   }
 }
