@@ -11,22 +11,23 @@ angular.module('burnsearchApp')
                 },
                 views: {
                     "camps@search": {
-                        templateUrl: 'scripts/app/search/camp/camp.search.html',
-                        controller: 'CampSearchController'
+                        templateUrl: 'scripts/app/search/entity.list.html',
+                        controller: 'EntityListController'
                     }
                 },
                 resolve: {
-                    campsPage: function($http, $stateParams) {
+                    resultsPage: function($http, $stateParams) {
                         return $http.get('/api/camps/search/description?q=' + $stateParams.q + "&page=" + $stateParams.campsPageNum).then(
                             function(response) {
                                 return {
-                                    camps: response.data.content,
-                                    totalCamps: response.data.totalItems,
+                                    entities: response.data.content,
+                                    totalEntities: response.data.totalItems,
                                     pageNumber: +$stateParams.campsPageNum
                                 }
                             }
                         )
-                    }
+                    },
+                    entityType: function() { return 'camps' }
                 }
 
             });

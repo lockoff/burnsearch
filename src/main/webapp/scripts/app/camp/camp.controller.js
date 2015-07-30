@@ -2,5 +2,6 @@
 
 angular.module('burnsearchApp')
     .controller('CampController', function($scope, camp) {
-        $scope.camp = camp;
+        $scope.entity = camp;
+        $scope.entityType = 'camps';
     });

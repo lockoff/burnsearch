@@ -11,22 +11,23 @@ angular.module('burnsearchApp')
                 },
                 views: {
                     "events@search": {
-                        templateUrl: 'scripts/app/search/event/event.search.html',
-                        controller: 'EventSearchController'
+                        templateUrl: 'scripts/app/search/entity.list.html',
+                        controller: 'EntityListController'
                     }
                 },
                 resolve: {
-                    eventsPage: function($http, $stateParams) {
+                    resultsPage: function($http, $stateParams) {
                         return $http.get('/api/events/search/description?q=' + $stateParams.q + "&page=" + $stateParams.eventsPageNum).then(
                             function(response) {
                                 return {
-                                    events: response.data.content,
-                                    totalEvents: response.data.totalItems,
+                                    entities: response.data.content,
+                                    totalEntities: response.data.totalItems,
                                     pageNumber: +$stateParams.eventsPageNum
                                 }
                             }
                         )
-                    }
+                    },
+                    entityType: function() { return 'events' }
                 }
             });
     });

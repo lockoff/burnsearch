@@ -1,15 +1,15 @@
-<div class="panel" ng-class="{'panel-danger': !event, 'panel-primary': event}">
+<div class="panel" ng-class="{'panel-danger': !entity, 'panel-primary': entity}">
 <div class="panel-heading clearfix">
-        <h3 class="panel-title" ng-show="!event">Event Not Found!</h3>
-        <h3 class="panel-title" ng-show="event">{{event.title}}</h3>
-        <h6 ng-show="event">{{event.eventType | eventType: event.allDay}} at Burning Man 2015
-            <br ng-show="event.hostingCamp"/>{{event.hostingCamp | hostingCampDisplay}}</h6>
-        <div class="btn-toolbar" role="toolbar" aria-label="Event Info Toolbar" ng-show="event">
-            <div class="btn-group pull-left" role="group" aria-label="Event Info Links" ng-visible="event.hostingCamp || event.url">
-                <a class="btn btn-default" aria-label="Event Camp" ng-show="event.hostingCamp" ui-sref="camp({campId: event.hostingCamp.id})">
+        <h3 class="panel-title" ng-show="!entity">Event Not Found!</h3>
+        <h3 class="panel-title" ng-show="entity">{{entity.title}}</h3>
+        <h6 ng-show="entity">{{entity.eventType | eventType: entity.allDay}} at Burning Man 2015
+            <br ng-show="entity.hostingCamp"/>{{entity.hostingCamp | hostingCampDisplay}}</h6>
+        <div class="btn-toolbar" role="toolbar" aria-label="Event Info Toolbar" ng-show="entity">
+            <div class="btn-group pull-left" role="group" aria-label="Event Info Links" ng-visible="entity.hostingCamp || entity.url">
+                <a class="btn btn-default" aria-label="Event Camp" ng-show="entity.hostingCamp" ui-sref="camp({campId: entity.hostingCamp.id})">
                     <span class="glyphicon glyphicon-tent" aria-hidden="true"></span>
                 </a>
-                <a class="btn btn-default" aria-label="Event Website" ng-show="event.url" href="{{event.url}}" target="_blank">
+                <a class="btn btn-default" aria-label="Event Website" ng-show="entity.url" href="{{entity.url}}" target="_blank">
                     <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                 </a>
             </div>
@@ -27,14 +27,14 @@
         </div>
     </div>
     <div class="panel-body" collapse="eventInfoTab != 'Description'">
-        <p ng-show="!event">The requested event could not be found.</p>
-        <h5 ng-show="event">Description</h5>
-        <p ng-show="event">{{event.description | description}}</p>
+        <p ng-show="!entity">The requested event could not be found.</p>
+        <h5 ng-show="entity">Description</h5>
+        <p ng-show="entity">{{entity.description | description}}</p>
     </div>
     <div class="panel-body" collapse="eventInfoTab != 'Schedule'">
         <h5>Event Schedule</h5>
         <table class="table table-condensed table-striped info-table">
-            <tr ng-repeat="occurrence in event.occurrenceSet">
+            <tr ng-repeat="occurrence in entity.occurrenceSet">
                 <td class="text-right">{{occurrence.startTime | dateString}}:</td>
                 <td>{{occurrence.startTime | time}} - {{occurrence.endTime | time}}</td>
             </tr>
@@ -42,19 +42,19 @@
     </div>
     <div class="panel-body" collapse="eventInfoTab != 'Location'">
         <h5>Location Info</h5>
-        <p class="text-warning" ng-show="event.checkLocation">Check Directory at Playa Info for Camp Location</p>
+        <p class="text-warning" ng-show="entity.checkLocation">Check Directory at Playa Info for Camp Location</p>
         <table class="table table-condensed info-table">
-            <tr ng-show="event.hostingCamp">
+            <tr ng-show="entity.hostingCamp">
                 <td class="text-right">Hosting Camp:</td>
-                <td><a ui-sref="camp({campId: event.hostingCamp.id})">{{event.hostingCamp.name}}</a></td>
+                <td><a ui-sref="camp({campId: entity.hostingCamp.id})">{{entity.hostingCamp.name}}</a></td>
             </tr>
-            <tr ng-show="event.locatedAtArt">
+            <tr ng-show="entity.locatedAtArt">
                 <td class="text-right">Art Piece:</td>
-                <td>{{event.locatedAtArt | locatedAtArt}}</td>
+                <td>{{entity.locatedAtArt | locatedAtArt}}</td>
             </tr>
-            <tr ng-show="event.otherLocation">
+            <tr ng-show="entity.otherLocation">
                 <td class="text-right">Other Location:</td>
-                <td>{{event.otherLocation}}</td>
+                <td>{{entity.otherLocation}}</td>
             </tr>
         </table>
     </div>
