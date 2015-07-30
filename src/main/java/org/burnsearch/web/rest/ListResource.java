@@ -1,18 +1,27 @@
 package org.burnsearch.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import org.burnsearch.domain.Event;
 import org.burnsearch.repository.search.CampSearchRepository;
 import org.burnsearch.repository.search.EventSearchRepository;
 import org.burnsearch.service.UserService;
+import org.burnsearch.web.rest.dto.SearchResultsDTO;
+import org.elasticsearch.index.query.IdsQueryBuilder;
+import org.elasticsearch.index.query.MatchQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,7 +38,7 @@ public class ListResource {
 
     @Inject
     private CampSearchRepository campSearchRepository;
-    
+
     @RequestMapping(value = "/list/events/{id}",
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,6 +63,25 @@ public class ListResource {
     @Timed
     public Set<Long> getEvents() {
         return userService.getEventList();
+    }
+
+    @RequestMapping(value = "/list/events/docs",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public SearchResultsDTO<Event> getEventsListDocs(
+            @RequestParam(value = "page", defaultValue = "0") int pageNumber,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+        Set<Long> eventsListIds = userService.getEventList();
+        IdsQueryBuilder queryBuilder = new IdsQueryBuilder();
+        for (Long eventId : eventsListIds) {
+            queryBuilder.addIds(eventId.toString());
+        }
+        FacetedPage<Event> searchResults = eventSearchRepository
+                .search(queryBuilder, new PageRequest(pageNumber, size));
+        return new SearchResultsDTO<>(searchResults.getNumber(),
+                searchResults.getTotalElements(),
+                searchResults.getContent());
     }
 
     @RequestMapping(value = "/list/camps/{id}",
