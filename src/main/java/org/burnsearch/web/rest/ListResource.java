@@ -64,4 +64,13 @@ public class ListResource {
     public Set<Long> getCamps() {
         return userService.getCampList();
     }
+
+    @RequestMapping(value = "/list/camps/{id}",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<String> deleteCamp(@PathVariable("id") Long campId) {
+        userService.removeFromCampList(campId);
+        return new ResponseEntity<String>(HttpStatus.OK);
+    }
 }
