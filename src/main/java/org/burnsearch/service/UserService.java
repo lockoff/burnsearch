@@ -181,4 +181,12 @@ public class UserService {
     public Set<Long> getCampList() {
         return userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).get().getCampsList();
     }
+
+    public void removeFromCampList(Long campId) {
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).get();
+        Set<Long> campList = user.getCampsList();
+        campList.remove(campId);
+        user.setCampsList(campList);
+        userRepository.save(user);
+    }
 }
