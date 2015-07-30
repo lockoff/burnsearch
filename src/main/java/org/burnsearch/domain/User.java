@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 
 import org.springframework.data.elasticsearch.annotations.Document;
+
 import javax.persistence.*;
+
 import org.hibernate.annotations.Type;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -20,7 +23,7 @@ import org.joda.time.DateTime;
  */
 @Entity
 @Table(name = "JHI_USER")
-@Document(indexName="user", shards = 1)
+@Document(indexName = "user", shards = 1)
 public class User extends AbstractAuditingEntity implements Serializable {
 
     @Id
@@ -79,6 +82,34 @@ public class User extends AbstractAuditingEntity implements Serializable {
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
     private Set<Authority> authorities = new HashSet<>();
+
+    @JsonIgnore
+    @ElementCollection
+    @Column(name = "event_id")
+    @CollectionTable(name = "USER_EVENT_LIST", joinColumns = @JoinColumn(name = "user_id"))
+    private Set<Long> eventsList = new HashSet<>();
+
+    public Set<Long> getEventsList() {
+        return eventsList;
+    }
+
+    public void setEventsList(Set<Long> eventsList) {
+        this.eventsList = eventsList;
+    }
+
+    @JsonIgnore
+    @ElementCollection
+    @Column(name = "camp_id")
+    @CollectionTable(name = "USER_CAMP_LIST", joinColumns = @JoinColumn(name = "user_id"))
+    private Set<Long> campsList = new HashSet<>();
+
+    public Set<Long> getCampsList() {
+        return campsList;
+    }
+
+    public void setCampsList(Set<Long> campsList) {
+        this.campsList = campsList;
+    }
 
     public Long getId() {
         return id;
@@ -153,11 +184,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     }
 
     public DateTime getResetDate() {
-       return resetDate;
+        return resetDate;
     }
 
     public void setResetDate(DateTime resetDate) {
-       this.resetDate = resetDate;
+        this.resetDate = resetDate;
     }
 
     public String getLangKey() {
