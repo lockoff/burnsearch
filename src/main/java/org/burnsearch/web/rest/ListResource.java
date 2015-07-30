@@ -1,6 +1,8 @@
 package org.burnsearch.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import org.burnsearch.repository.search.CampSearchRepository;
+import org.burnsearch.repository.search.EventSearchRepository;
 import org.burnsearch.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,6 +24,12 @@ public class ListResource {
     @Inject
     private UserService userService;
 
+    @Inject
+    private EventSearchRepository eventSearchRepository;
+
+    @Inject
+    private CampSearchRepository campSearchRepository;
+    
     @RequestMapping(value = "/list/events/{id}",
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
