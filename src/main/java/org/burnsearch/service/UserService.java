@@ -157,4 +157,16 @@ public class UserService {
             userSearchRepository.delete(user);
         }
     }
+
+    public void addToEventList(Long eventId) {
+      User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).get();
+      Set<Long> eventList = user.getEventsList();
+      eventList.add(eventId);
+      user.setEventsList(eventList);
+      userRepository.save(user);
+    }
+
+    public Set<Long> getEventList() {
+        return userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).get().getEventsList();
+    }
 }

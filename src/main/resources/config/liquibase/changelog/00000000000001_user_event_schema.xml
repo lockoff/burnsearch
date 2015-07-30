@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="00000000000002" author="kiyan">
+
+        <createTable tableName="USER_EVENT_LIST">
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="user_id, event_id" tableName="USER_EVENT_LIST"/>
+
+        <createIndex indexName="idx_user_event_list"
+                     tableName="USER_EVENT_LIST"
+                     unique="false">
+            <column name="user_id" type="bigint"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="USER_EVENT_LIST"
+                                 constraintName="fk_user_event_list"
+                                 referencedColumnNames="id"
+                                 referencedTableName="JHI_USER"/>
+    </changeSet>
+
+</databaseChangeLog>

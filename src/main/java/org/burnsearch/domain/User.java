@@ -80,6 +80,20 @@ public class User extends AbstractAuditingEntity implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
     private Set<Authority> authorities = new HashSet<>();
 
+    @JsonIgnore
+    @ElementCollection
+    @Column(name="event_id")
+    @CollectionTable(name="USER_EVENT_LIST", joinColumns=@JoinColumn(name="user_id"))
+    private Set<Long> eventsList = new HashSet<>();
+
+    public Set<Long> getEventsList() {
+        return eventsList;
+    }
+
+    public void setEventsList(Set<Long> eventsList) {
+        this.eventsList = eventsList;
+    }
+
     public Long getId() {
         return id;
     }
