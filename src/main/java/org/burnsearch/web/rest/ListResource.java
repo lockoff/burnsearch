@@ -44,7 +44,7 @@ public class ListResource {
     @Timed
     public ResponseEntity<String> addEvent(@PathVariable("id") Long eventId) {
         userService.addToEventList(eventId);
-        return new ResponseEntity<String>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/list/events/{id}",
@@ -53,7 +53,7 @@ public class ListResource {
     @Timed
     public ResponseEntity<String> deleteEvent(@PathVariable("id") Long eventId) {
         userService.removeFromEventList(eventId);
-        return new ResponseEntity<String>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/list/events",
@@ -89,7 +89,7 @@ public class ListResource {
     @Timed
     public ResponseEntity<String> addCamp(@PathVariable("id") Long campId) {
         userService.addToCampList(campId);
-        return new ResponseEntity<String>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/list/camps",
@@ -106,7 +106,7 @@ public class ListResource {
     @Timed
     public ResponseEntity<String> deleteCamp(@PathVariable("id") Long campId) {
         userService.removeFromCampList(campId);
-        return new ResponseEntity<String>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/list/camps/docs",
