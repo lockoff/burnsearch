@@ -31,6 +31,15 @@ public class ListResource {
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/list/events/{id}",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<String> deleteEvent(@PathVariable("id") Long eventId) {
+        userService.removeFromEventList(eventId);
+        return new ResponseEntity<String>(HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/list/events",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)

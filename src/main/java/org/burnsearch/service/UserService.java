@@ -79,10 +79,10 @@ public class UserService {
        return userRepository.findOneByEmail(mail)
            .filter(user -> user.getActivated() == true)
            .map(user -> {
-               user.setResetKey(RandomUtil.generateResetKey());
-               user.setResetDate(DateTime.now());
-               userRepository.save(user);
-               return user;
+             user.setResetKey(RandomUtil.generateResetKey());
+             user.setResetDate(DateTime.now());
+             userRepository.save(user);
+             return user;
            });
     }
 
@@ -180,5 +180,13 @@ public class UserService {
 
     public Set<Long> getCampList() {
         return userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).get().getCampsList();
+    }
+
+    public void removeFromEventList(Long eventId) {
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).get();
+        Set<Long> eventList = user.getEventsList();
+        eventList.remove(eventId);
+        user.setEventsList(eventList);
+        userRepository.save(user);
     }
 }
