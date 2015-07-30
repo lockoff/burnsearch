@@ -1,18 +1,23 @@
 package org.burnsearch.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import org.burnsearch.domain.Camp;
 import org.burnsearch.repository.search.CampSearchRepository;
 import org.burnsearch.repository.search.EventSearchRepository;
 import org.burnsearch.service.UserService;
+import org.burnsearch.web.rest.dto.SearchResultsDTO;
+import org.elasticsearch.index.query.IdsQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,7 +34,7 @@ public class ListResource {
 
     @Inject
     private CampSearchRepository campSearchRepository;
-    
+
     @RequestMapping(value = "/list/events/{id}",
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -80,5 +85,22 @@ public class ListResource {
     public ResponseEntity<String> deleteCamp(@PathVariable("id") Long campId) {
         userService.removeFromCampList(campId);
         return new ResponseEntity<String>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/list/camps/docs",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public SearchResultsDTO<Camp> getCampsListDocs(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                   @RequestParam(value = "size", defaultValue = "10") int size) {
+
+        IdsQueryBuilder qb = QueryBuilders.idsQuery();
+        for(Long campId: this.getCamps()) {
+            qb.addIds(campId.toString());
+        }
+        FacetedPage<Camp> searchResults = campSearchRepository.search(qb, new PageRequest(page, size));
+        return new SearchResultsDTO<>(searchResults.getNumber(),
+                searchResults.getTotalElements(),
+                searchResults.getContent());
     }
 }
