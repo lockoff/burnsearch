@@ -11,8 +11,8 @@ angular.module('burnsearchApp')
                 },
                 views: {
                     "content@": {
-                        templateUrl: 'scripts/app/search/search.html',
-                        controller: 'SearchController'
+                        templateUrl: 'scripts/app/list/entity.list.shell.html',
+                        controller: 'EntityListShellController'
                     }
                 }
             });

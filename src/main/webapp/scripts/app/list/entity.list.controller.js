@@ -12,6 +12,6 @@ angular.module('burnsearchApp')
         $scope.currentPage = resultsPage.pageNumber + 1;
         $scope.totalEntities = resultsPage.totalEntities;
         $scope.entities = resultsPage.entities;
-        $scope.$parent.searchEntityTab = entityType;
+        $scope.$parent.entityTab = entityType;
         $scope.entityType = entityType;
     });
