@@ -1,4 +1,4 @@
-<div class="panel" ng-class="{'panel-danger': !entity, 'panel-primary': entity}">
+<div class="panel" ng-class="{'panel-danger': !entity, 'panel-primary': entity}" ng-show="$parent.mode != 'Plan' || isInPlan">
     <div class="panel-heading clearfix">
         <div class="row">
             <div class="col-xs-10">
