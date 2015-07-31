@@ -3,7 +3,7 @@
 angular.module('burnsearchApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('camps', {
+            .state('campsSearch', {
                 parent: 'search',
                 url: '/search/camps?q&campsPageNum&eventsPageNum',
                 data: {
@@ -11,7 +11,7 @@ angular.module('burnsearchApp')
                 },
                 views: {
                     "camps@search": {
-                        templateUrl: 'scripts/app/search/entity.list.html',
+                        templateUrl: 'scripts/app/list/entity.list.html',
                         controller: 'EntityListController'
                     }
                 },

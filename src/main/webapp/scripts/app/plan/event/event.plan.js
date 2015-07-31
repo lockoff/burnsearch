@@ -3,21 +3,21 @@
 angular.module('burnsearchApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('eventsSearch', {
-                parent: 'search',
-                url: '/search/events?q&eventsPageNum&campsPageNum',
+            .state('eventsPlan', {
+                parent: 'plan',
+                url: '/plan/events?eventsPageNum&campsPageNum',
                 data: {
-                    roles: []
+                    roles: ['ROLE_USER']
                 },
                 views: {
-                    "events@search": {
+                    "events@plan": {
                         templateUrl: 'scripts/app/list/entity.list.html',
                         controller: 'EntityListController'
                     }
                 },
                 resolve: {
                     resultsPage: function($http, $stateParams) {
-                        return $http.get('/api/events/search/description?q=' + $stateParams.q + "&page=" + $stateParams.eventsPageNum).then(
+                        return $http.get('/api/list/events/docs?page=' + $stateParams.eventsPageNum).then(
                             function(response) {
                                 return {
                                     entities: response.data.content,

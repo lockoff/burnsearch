@@ -14,30 +14,17 @@
                 <li ui-sref-active="active">
                     <a ui-sref="home">
                         <span class="glyphicon glyphicon-home"></span>
-                        <span>Home</span>
                     </a>
                 </li>
-                <li ui-sref-active="active" ng-switch-when="true" class="dropdown pointer">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                                <span>
-                                    <span class="glyphicon glyphicon-th-list"></span>
-                                    <span class="hidden-tablet">
-                                        Entities
-                                    </span>
-                                    <b class="caret"></b>
-                                </span>
+                <li ng-class="{active: $state.includes('plan')}" ng-switch-when="true">
+                    <a ui-sref="eventsPlan({eventsPageNum: 0, campsPageNum: 0})">
+                        <span class="glyphicon glyphicon-list"></span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <!-- JHipster will add entities to the menu here -->
-                    </ul>
                 </li>
                 <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                                 <span>
                                     <span class="glyphicon glyphicon-user"></span>
-                                    <span class="hidden-tablet">
-                                        Account
-                                    </span>
                                     <b class="caret"></b>
                                 </span>
                     </a>
@@ -81,7 +68,7 @@
                     </ul>
                 </li>
             </ul>
-            <form class="navbar-form" ng-submit="$state.go('events', {q: query, eventsPageNum: 0, campsPageNum: 0})">
+            <form class="navbar-form" ng-submit="$state.go('eventsSearch', {q: query, eventsPageNum: 0, campsPageNum: 0})">
                 <div class="form-group navbar-search-form">
                     <div class="input-group" style="width:100%">
                         <input type="text" class="form-control" placeholder="Search The Playa..." ng-model="query">

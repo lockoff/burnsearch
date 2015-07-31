@@ -3,7 +3,7 @@
 angular.module('burnsearchApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('search', {
+            .state('plan', {
                 parent: 'site',
                 abstract: true,
                 data: {
@@ -16,7 +16,7 @@ angular.module('burnsearchApp')
                     }
                 },
                 resolve: {
-                    mode: function() { return "Search"; }
+                    mode: function() { return "Plan"; }
                 }
             });
     });

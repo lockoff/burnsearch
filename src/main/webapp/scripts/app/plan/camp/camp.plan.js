@@ -3,31 +3,32 @@
 angular.module('burnsearchApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('eventsSearch', {
-                parent: 'search',
-                url: '/search/events?q&eventsPageNum&campsPageNum',
+            .state('campsPlan', {
+                parent: 'plan',
+                url: '/plan/camps?campsPageNum&eventsPageNum',
                 data: {
-                    roles: []
+                    roles: ['ROLE_USER']
                 },
                 views: {
-                    "events@search": {
+                    "camps@plan": {
                         templateUrl: 'scripts/app/list/entity.list.html',
                         controller: 'EntityListController'
                     }
                 },
                 resolve: {
                     resultsPage: function($http, $stateParams) {
-                        return $http.get('/api/events/search/description?q=' + $stateParams.q + "&page=" + $stateParams.eventsPageNum).then(
+                        return $http.get('/api/list/camps/docs?page=' + $stateParams.campsPageNum).then(
                             function(response) {
                                 return {
                                     entities: response.data.content,
                                     totalEntities: response.data.totalItems,
-                                    pageNumber: +$stateParams.eventsPageNum
+                                    pageNumber: +$stateParams.campsPageNum
                                 }
                             }
                         )
                     },
-                    entityType: function() { return 'events' }
+                    entityType: function() { return 'camps' }
                 }
+
             });
     });
