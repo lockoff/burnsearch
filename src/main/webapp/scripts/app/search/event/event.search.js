@@ -11,7 +11,7 @@ angular.module('burnsearchApp')
                 },
                 views: {
                     "events@search": {
-                        templateUrl: 'scripts/app/search/entity.list.html',
+                        templateUrl: 'scripts/app/list/entity.list.html',
                         controller: 'EntityListController'
                     }
                 },
