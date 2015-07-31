@@ -10,7 +10,7 @@ angular.module('burnsearchApp')
                 AuthServerProvider.login(credentials).then(function (data) {
                     // retrieve the logged account information
                     Principal.identity(true).then(function(account) {
-                      
+
                         deferred.resolve(data);
                     });
                     return cb();
@@ -47,6 +47,27 @@ angular.module('burnsearchApp')
                                 // now, send them to the signin state so they can log in
                                 $state.go('login');
                             }
+                        }
+                    });
+            },
+            /**
+             * Checks if the user is authenticated, and if not, stows the information for the
+             * current state and forwards the user to the login screen.
+             *
+             * @param force whether or not to force authentication.
+             * @returns {*} promise of the authentication action.
+             */
+            authenticateAction: function(force) {
+                return Principal.identity(force)
+                    .then(function() {
+                        if (!Principal.isAuthenticated()) {
+                            // user is not authenticated. stow the state they are in and
+                            // send them to the signin state, so you can return them when you're done
+                            $rootScope.returnToState = $state.current;
+                            $rootScope.returnToStateParams = $state.params;
+
+                            // now, send them to the signin state so they can log in
+                            $state.go('login');
                         }
                     });
             },

@@ -1,21 +1,42 @@
 <div class="panel" ng-class="{'panel-danger': !entity, 'panel-primary': entity}">
     <div class="panel-heading">
-        <h3 class="panel-title" ng-show="!entity">Camp Not Found!</h3>
-        <h3 class="panel-title" ng-show="entity">{{entity.name}}</h3>
-        <h6 ng-show="entity">Camp at Burning Man 2015</h6>
-        <div class="btn-toolbar" role="toolbar" aria-label="Camp Info Toolbar" ng-show="entity.url || entity.contactEmail">
-            <div class="btn-group pull-left" role="group" aria-label="Camp Info Links" ng-show="entity.url || entity.contactEmail">
-                <a class="btn btn-default" aria-label="Camp Website" ng-show="entity.url" href="{{entity.url}}" target="_blank">
-                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                </a>
-                <a class="btn btn-default" aria-label="Camp Contact" ng-show="entity.contactEmail" href="mailto:{{entity.contactEmail}}">
-                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                </a>
+        <div class="row">
+            <div class="col-xs-10">
+                <h3 class="panel-title" ng-show="!entity">Camp Not Found!</h3>
+
+                <h3 class="panel-title" ng-show="entity">{{entity.name}}</h3>
+                <h6 ng-show="entity">Camp at Burning Man 2015</h6>
+            </div>
+            <div class="col-xs-2">
+                <div class="col-xs-2 text-right">
+                    <button type="button" class="btn btn-default" aria-label="Add To List" ng-click="addToList()" ng-show="entity">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="btn-toolbar" role="toolbar" aria-label="Camp Info Toolbar"
+                     ng-show="entity.url || entity.contactEmail">
+                    <div class="btn-group pull-left" role="group" aria-label="Camp Info Links"
+                         ng-show="entity.url || entity.contactEmail">
+                        <a class="btn btn-default" aria-label="Camp Website" ng-show="entity.url"
+                           href="{{entity.url}}" target="_blank">
+                            <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-default" aria-label="Camp Contact" ng-show="entity.contactEmail"
+                           href="mailto:{{entity.contactEmail}}">
+                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="panel-body">
         <p ng-show="!entity">The requested camp could not be found.</p>
+
         <p ng-show="entity">{{entity.description | description}}</p>
     </div>
 </div>

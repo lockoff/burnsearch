@@ -1,34 +1,55 @@
 <div class="panel" ng-class="{'panel-danger': !entity, 'panel-primary': entity}">
-<div class="panel-heading clearfix">
-        <h3 class="panel-title" ng-show="!entity">Event Not Found!</h3>
-        <h3 class="panel-title" ng-show="entity">{{entity.title}}</h3>
-        <h6 ng-show="entity">{{entity.eventType | eventType: entity.allDay}} at Burning Man 2015
-            <br ng-show="entity.hostingCamp"/>{{entity.hostingCamp | hostingCampDisplay}}</h6>
-        <div class="btn-toolbar" role="toolbar" aria-label="Event Info Toolbar" ng-show="entity">
-            <div class="btn-group pull-left" role="group" aria-label="Event Info Links" ng-visible="entity.hostingCamp || entity.url">
-                <a class="btn btn-default" aria-label="Event Camp" ng-show="entity.hostingCamp" ui-sref="camp({campId: entity.hostingCamp.id})">
-                    <span class="glyphicon glyphicon-tent" aria-hidden="true"></span>
-                </a>
-                <a class="btn btn-default" aria-label="Event Website" ng-show="entity.url" href="{{entity.url}}" target="_blank">
-                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                </a>
+    <div class="panel-heading clearfix">
+        <div class="row">
+            <div class="col-xs-10">
+                <h3 class="panel-title" ng-show="!entity">Event Not Found!</h3>
+
+                <h3 class="panel-title" ng-show="entity">{{entity.title}}</h3>
+                <h6 ng-show="entity">{{entity.eventType | eventType: entity.allDay}} at Burning Man 2015
+                    <br ng-show="entity.hostingCamp"/>{{entity.hostingCamp | hostingCampDisplay}}</h6>
             </div>
-            <div class="btn-group pull-right" role="group" aria-label="Event Info Tabs">
-                <label class="btn btn-default" aria-label="Event Description" ng-model="eventInfoTab" btn-radio="'Description'">
-                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </label>
-                <label class="btn btn-default" aria-label="Event Schedule" ng-model="eventInfoTab" btn-radio="'Schedule'">
-                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                </label>
-                <label class="btn btn-default" aria-label="Event Location" ng-model="eventInfoTab" btn-radio="'Location'">
-                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                </label>
+            <div class="col-xs-2 text-right">
+                <button type="button" class="btn btn-default" aria-label="Add To List" ng-click="addToList()" ng-show="entity">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="btn-toolbar" role="toolbar" aria-label="Event Info Toolbar" ng-show="entity">
+                    <div class="btn-group pull-left" role="group" aria-label="Event Info Links"
+                         ng-visible="entity.hostingCamp || entity.url">
+                        <a class="btn btn-default" aria-label="Event Camp" ng-show="entity.hostingCamp"
+                           ui-sref="camp({campId: entity.hostingCamp.id})">
+                            <span class="glyphicon glyphicon-tent" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-default" aria-label="Event Website" ng-show="entity.url"
+                           href="{{entity.url}}" target="_blank">
+                            <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    <div class="btn-group pull-right text-right" role="group" aria-label="Event Info Tabs">
+                        <label class="btn btn-default" aria-label="Event Description"
+                               ng-model="eventInfoTab" btn-radio="'Description'">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        </label>
+                        <label class="btn btn-default" aria-label="Event Schedule" ng-model="eventInfoTab"
+                               btn-radio="'Schedule'">
+                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                        </label>
+                        <label class="btn btn-default" aria-label="Event Location" ng-model="eventInfoTab"
+                               btn-radio="'Location'">
+                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="panel-body" collapse="eventInfoTab != 'Description'">
         <p ng-show="!entity">The requested event could not be found.</p>
         <h5 ng-show="entity">Description</h5>
+
         <p ng-show="entity">{{entity.description | description}}</p>
     </div>
     <div class="panel-body" collapse="eventInfoTab != 'Schedule'">
@@ -42,11 +63,15 @@
     </div>
     <div class="panel-body" collapse="eventInfoTab != 'Location'">
         <h5>Location Info</h5>
-        <p class="text-warning" ng-show="entity.checkLocation">Check Directory at Playa Info for Camp Location</p>
+
+        <p class="text-warning" ng-show="entity.checkLocation">Check Directory at Playa Info for
+            Camp Location</p>
         <table class="table table-condensed info-table">
             <tr ng-show="entity.hostingCamp">
                 <td class="text-right">Hosting Camp:</td>
-                <td><a ui-sref="camp({campId: entity.hostingCamp.id})">{{entity.hostingCamp.name}}</a></td>
+                <td>
+                    <a ui-sref="camp({campId: entity.hostingCamp.id})">{{entity.hostingCamp.name}}</a>
+                </td>
             </tr>
             <tr ng-show="entity.locatedAtArt">
                 <td class="text-right">Art Piece:</td>

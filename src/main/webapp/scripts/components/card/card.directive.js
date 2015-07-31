@@ -8,7 +8,7 @@
  * scope used to hold information for UI controls if needed (e.g. current tab on the card).
  */
 angular.module('burnsearchApp')
-    .directive('entityCard', function($compile, $http, $templateCache) {
+    .directive('entityCard', function($compile, $http, $templateCache, Auth) {
         return {
             scope: true,
             restrict: 'E',
@@ -20,6 +20,7 @@ angular.module('burnsearchApp')
                     }
                 });
 
+                $scope.isAddedToList = false;
                 function loadTemplate(entityType) {
                     var templateUrl = undefined;
                     if (entityType == 'events') {
@@ -29,10 +30,22 @@ angular.module('burnsearchApp')
                     if (entityType == 'camps') {
                         templateUrl = 'scripts/components/camp/camp.directive.template.html';
                     }
+                    $scope.addToList = addToList(entityType);
                     $http.get(templateUrl, { cache: $templateCache})
                         .success(function(templateContent) {
                             $el.replaceWith($compile(templateContent)($scope));
                         })
+                }
+
+                function addToList(entity) {
+                    return function() {
+                        Auth.authenticateAction(false);
+                        $http.put("/api/list/" + entity + "/" + $scope.entity.id).then(
+                            function(response) {
+                                $scope.isAddedToList = true;
+                            }
+                        );
+                    }
                 }
             }
         }
