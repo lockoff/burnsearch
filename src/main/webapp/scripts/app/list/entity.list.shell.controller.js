@@ -11,5 +11,7 @@ angular.module('burnsearchApp')
             $state.transitionTo('camps' + mode, $state.params);
         };
 
+        $scope.mode = mode;
+
     });
 

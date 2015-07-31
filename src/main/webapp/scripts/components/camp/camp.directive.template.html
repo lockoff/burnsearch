@@ -1,4 +1,4 @@
-<div class="panel" ng-class="{'panel-danger': !entity, 'panel-primary': entity}">
+<div class="panel" ng-class="{'panel-danger': !entity, 'panel-primary': entity}" ng-show="$parent.mode != 'Plan' || isInPlan">
     <div class="panel-heading">
         <div class="row">
             <div class="col-xs-10">
@@ -7,10 +7,13 @@
                 <h3 class="panel-title" ng-show="entity">{{entity.name}}</h3>
                 <h6 ng-show="entity">Camp at Burning Man 2015</h6>
             </div>
-            <div class="col-xs-2">
-                <div class="col-xs-2 text-right">
-                    <button type="button" class="btn btn-default" aria-label="Add To List" ng-click="addToList()" ng-show="entity">
+            <div class="col-xs-2 text-right">
+                <div class="btn-group" role="group" aria-label="Plan Buttons" ng-show="entity" ng-switch="isInPlan">
+                    <button type="button" class="btn btn-success" aria-label="Add To Plan" ng-click="addToPlan()" ng-switch-when="false">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger" aria-label="Remove From Plan" ng-click="removeFromPlan()" ng-switch-when="true">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
                 </div>
             </div>
