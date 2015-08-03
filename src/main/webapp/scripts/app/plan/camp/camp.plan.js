@@ -17,7 +17,7 @@ angular.module('burnsearchApp')
                 },
                 resolve: {
                     resultsPage: function($http, $stateParams) {
-                        return $http.get('/api/list/camps/docs?page=' + $stateParams.campsPageNum).then(
+                        return $http.get('/api/plan/camps/docs?page=' + $stateParams.campsPageNum).then(
                             function(response) {
                                 return {
                                     entities: response.data.content,

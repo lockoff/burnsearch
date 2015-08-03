@@ -24,11 +24,12 @@ import javax.inject.Inject;
 import java.util.Set;
 
 /**
- *
+ * Resource exposing endpoints for CRUD operations on a user's personal plans (i.e. lists of events,
+ * camps, etc. they find interesting).
  */
 @RestController
 @RequestMapping("/api")
-public class ListResource {
+public class PlanResource {
     @Inject
     private UserService userService;
 
@@ -38,7 +39,7 @@ public class ListResource {
     @Inject
     private CampSearchRepository campSearchRepository;
 
-    @RequestMapping(value = "/list/events/{id}",
+    @RequestMapping(value = "/plan/events/{id}",
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -47,7 +48,7 @@ public class ListResource {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/list/events/{id}",
+    @RequestMapping(value = "/plan/events/{id}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -56,7 +57,7 @@ public class ListResource {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/list/events",
+    @RequestMapping(value = "/plan/events",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -64,7 +65,7 @@ public class ListResource {
         return userService.getEventList();
     }
 
-    @RequestMapping(value = "/list/events/docs",
+    @RequestMapping(value = "/plan/events/docs",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -83,7 +84,7 @@ public class ListResource {
                 searchResults.getContent());
     }
 
-    @RequestMapping(value = "/list/camps/{id}",
+    @RequestMapping(value = "/plan/camps/{id}",
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -92,7 +93,7 @@ public class ListResource {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/list/camps",
+    @RequestMapping(value = "/plan/camps",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -100,7 +101,7 @@ public class ListResource {
         return userService.getCampList();
     }
 
-    @RequestMapping(value = "/list/camps/{id}",
+    @RequestMapping(value = "/plan/camps/{id}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -109,7 +110,7 @@ public class ListResource {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/list/camps/docs",
+    @RequestMapping(value = "/plan/camps/docs",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed

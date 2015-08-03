@@ -14,7 +14,7 @@ angular.module('burnsearchApp')
         }
 
         function loadPlan(planType) {
-            return $http.get("/api/list/" + planType).then(
+            return $http.get("/api/plan/" + planType).then(
                 function (response) {
                     var plan = {};
                     response.data.forEach(function (entityId) {
@@ -51,7 +51,7 @@ angular.module('burnsearchApp')
 
         function addToPlan(planType, entityId) {
             Auth.authenticateAction(false);
-            return $http.put("/api/list/" + planType + "/" + entityId).then(
+            return $http.put("/api/plan/" + planType + "/" + entityId).then(
                 function (response) {
                     plans[planType][entityId] = true;
                 }
@@ -60,7 +60,7 @@ angular.module('burnsearchApp')
 
         function removeFromPlan(planType, entityId) {
             Auth.authenticateAction(false);
-            return $http.delete("/api/list/" + planType + "/" + entityId).then(
+            return $http.delete("/api/plan/" + planType + "/" + entityId).then(
                 function (response) {
                     plans[planType][entityId] = false;
                 }
