@@ -1,0 +1,61 @@
+<div class="visible-print">
+    <h2>Your Playa Plan</h2>
+    <h3>Camps</h3>
+    <table class="table" ng-show="campsPlan.length">
+        <tr ng-repeat="camp in campsPlan">
+            <td>
+                <h4>{{camp.name}}</h4>
+                <p>{{camp.description}}</p>
+                <table class="table table-condensed info-table-print" ng-show="camp.url || camp.contactEmail">
+                    <tr ng-show="camp.url">
+                        <td class="text-right heading-cell">Website:</td>
+                        <td><a href="{{camp.url}}">{{camp.url}}</a></td>
+                    </tr>
+                    <tr ng-show="camp.contactEmail">
+                        <td class="text-right heading-cell">Email:</td>
+                        <td><a href="mailto:{{camp.contactEmail}}">{{camp.contactEmail}}</a></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <p ng-show="!campsPlan.length">There are no camps in your plan.</p>
+    <h3>Events</h3>
+    <table class="table" ng-show="eventsPlan.length">
+        <tr ng-repeat="event in eventsPlan">
+            <td>
+                <h4>{{event.title}}</h4>
+                <p>{{event.description | description}}</p>
+                <p class="text-warning" ng-show="event.checkLocation">Check Directory at Playa Info for
+                    Camp Location</p>
+                <table class="table table-condensed info-table-print">
+                    <tr>
+                        <td class="text-right heading-cell">Event Type:</td>
+                        <td>{{event.eventType | eventType: event.allDay}}</td>
+                    </tr>
+                    <tr ng-show="event.hostingCamp">
+                        <td class="text-right heading-cell">Hosting Camp:</td>
+                        <td>{{event.hostingCamp.name}}</td>
+                    </tr>
+                    <tr ng-show="event.locatedAtArt">
+                        <td class="text-right heading-cell">Art Piece:</td>
+                        <td>{{event.locatedAtArt | locatedAtArt}}</td>
+                    </tr>
+                    <tr ng-show="event.otherLocation">
+                        <td class="text-right heading-cell">Location Info:</td>
+                        <td>{{event.otherLocation}}</td>
+                    </tr>
+                    <tr ng-show="event.url">
+                        <td class="text-right heading-cell">Website:</td>
+                        <td><a href="{{event.url}}">{{event.url}}</a></td>
+                    </tr>
+                    <tr ng-repeat="occurrence in event.occurrenceSet">
+                        <td class="text-right heading-cell">{{occurrence.startTime | dateString}}:</td>
+                        <td>{{occurrence.startTime | time}} - {{occurrence.endTime | time}}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <p ng-show="!eventsPlan.length">There are no events in your plan.</p>
+</div>

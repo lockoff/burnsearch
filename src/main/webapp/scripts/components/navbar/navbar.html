@@ -16,9 +16,21 @@
                         <span class="glyphicon glyphicon-home"></span>
                     </a>
                 </li>
-                <li ng-class="{active: $state.includes('plan')}" ng-switch-when="true">
-                    <a ui-sref="eventsPlan({eventsPageNum: 0, campsPageNum: 0})">
-                        <span class="glyphicon glyphicon-list"></span>
+                <li ng-class="{active: $state.includes('plan')}" class="dropdown pointer" ng-switch-when="true">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                        <span>
+                            <span class="glyphicon glyphicon-list"></span>
+                            <b class="caret"></b>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ui-sref-active="active"><a ui-sref="eventsPlan({eventsPageNum: 0, campsPageNum: 0})"><span class="glyphicon glyphicon-sunglasses"></span>
+                            &#xA0;<span>View</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="printPlan"><span class="glyphicon glyphicon-print"></span>
+                            &#xA0;<span>Print</span></a></li>
+                    </ul>
+
+
                     </a>
                 </li>
                 <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
