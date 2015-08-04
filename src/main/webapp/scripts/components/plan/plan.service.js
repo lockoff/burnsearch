@@ -1,15 +1,18 @@
 'use strict';
 
 angular.module('burnsearchApp')
-    .factory('PlanService', function ($http, $q, Auth, Principal) {
-        var plans = {
-            events: undefined,
-            camps: undefined
-        };
-
+    .factory('PlanService', function ($http, $q, Auth, Principal, StorageService) {
         function loadPlans() {
-            return loadPlan("events").then(function () {
-                return loadPlan("camps")
+            var plans = {
+                events: undefined,
+                camps: undefined
+            };
+            return loadPlan("events").then(function (eventsPlan) {
+                plans.events = eventsPlan;
+                return loadPlan("camps").then(function(campsPlan) {
+                    plans.camps = campsPlan;
+                    StorageService.save("plans", plans);
+                })
             })
         }
 
@@ -20,13 +23,13 @@ angular.module('burnsearchApp')
                     response.data.forEach(function (entityId) {
                         plan[entityId] = true
                     });
-                    plans[planType] = plan;
-                    return plans;
+                    return plan;
                 }
             )
         }
 
         function getPlanMapValue(planType, entityId) {
+            var plans = StorageService.get("plans");
             if (plans[planType][entityId]) {
                 return true;
             }
@@ -40,7 +43,7 @@ angular.module('burnsearchApp')
                 deferred.resolve(false);
                 return promise;
             }
-            if (!plans.events && !plans.camps) {
+            if (!StorageService.get("plans")) {
                 return loadPlans().then(function () {
                     return getPlanMapValue(planType, entityId);
                 });
@@ -53,7 +56,9 @@ angular.module('burnsearchApp')
             Auth.authenticateAction(false);
             return $http.put("/api/plan/" + planType + "/" + entityId).then(
                 function (response) {
+                    var plans = StorageService.get("plans");
                     plans[planType][entityId] = true;
+                    StorageService.save("plans", plans);
                 }
             );
         }
@@ -62,15 +67,16 @@ angular.module('burnsearchApp')
             Auth.authenticateAction(false);
             return $http.delete("/api/plan/" + planType + "/" + entityId).then(
                 function (response) {
+                    var plans = StorageService.get("plans");
                     plans[planType][entityId] = false;
+                    StorageService.save("plans", plans);
                 }
             );
         }
 
         return {
             clearPlans: function () {
-                plans.events = undefined;
-                plans.camps = undefined;
+                StorageService.remove("plans");
             },
             isInPlan: isInPlan,
             addToPlan: addToPlan,
