@@ -198,3 +198,8 @@ ul#strengthBar {
     width:20px;
 }
 /* end Password strength bar style */
+
+/* Modify Bootstrap well opacity */
+.well {
+   background-color: rgba(245, 245, 245, 0.75);
+}
