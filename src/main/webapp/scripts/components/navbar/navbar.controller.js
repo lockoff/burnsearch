@@ -6,6 +6,10 @@ angular.module('burnsearchApp')
         $scope.$state = $state;
         $scope.query = '';
 
+        $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+            $scope.query = toParams.q;
+        });
+
         $scope.logout = function () {
             Auth.logout();
             PlanService.clearPlans();
