@@ -50,8 +50,8 @@
                         <td><a href="{{event.url}}">{{event.url}}</a></td>
                     </tr>
                     <tr ng-repeat="occurrence in event.occurrenceSet">
-                        <td class="text-right heading-cell">{{occurrence.startTime | dateString}}:</td>
-                        <td>{{occurrence.startTime | time}} - {{occurrence.endTime | time}}</td>
+                        <td class="text-right heading-cell">{{occurrence.startTime | amDateFormat:'ddd MMM D YYYY'}}:</td>
+                        <td>{{occurrence.startTime | amDateFormat:'h:mm:ss A'}} - {{occurrence.endTime | amDateFormat:'h:mm:ss A'}}</td>
                     </tr>
                 </table>
             </td>
