@@ -7,11 +7,11 @@ angular.module('burnsearchApp')
             params["q"] = $stateParams.q;
             params[entityType + "PageNum"] = ($scope.currentPage - 1);
             $state.go(entityType + mode, params);
-            $window.scrollTo(0,0);
         };
         $scope.currentPage = resultsPage.pageNumber + 1;
         $scope.totalEntities = resultsPage.totalEntities;
         $scope.entities = resultsPage.entities;
         $scope.$parent.entityTab = entityType;
         $scope.entityType = entityType;
+        $window.scrollTo(0,0);
     });
