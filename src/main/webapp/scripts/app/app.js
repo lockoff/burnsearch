@@ -41,25 +41,23 @@ angular.module('burnsearchApp', ['LocalStorageModule',
             }
         };
         function selectBackground() {
-            var images = ['playa-ground.jpg', 'embrace-burn.jpg', 'buddha-on-wheels.jpg',
-                'wide-open-playa.jpg', 'leaving-the-gates.jpg', 'the-playa-sunset.jpg',
-                'aerial-view-whiteout.jpg', 'library-of-babel.jpg', 'night-temple.jpg',
-                'pumping-up-down.jpg'];
-            var titles = ['playa', 'Embrace Burn', 'Buddha on Wheels', 'The WIDE OPEN Playa',
-                'Leaving the gates of the Temple of Grace', 'The Playa',
-                'Aerial View of a Whiteout', 'Library of Babel by Warrick Macmillan',
-                'Night Temple', 'Pumping up and Down'];
-            var photographers = ['Mario Covic', 'Anne Staveley', 'Dust to Ashes',
-                'Michael DiMonaco', 'Michael DiMonaco', 'Mark Hammon', 'Burning Man Staff',
-                'Jonathan LaLiberty', 'John K. Goodman', 'Michael Muenzing'];
-            var contacts = ['mailto:mariocovicphotos@gmail.com', 'mailto:annestaveley@gmail.com',
-                'http://www.dusttoashes.com/', 'mailto:madimagingsf@gmail.com',
-                'mailto:madimagingsf@gmail.com', 'http://www.hammonphoto.com/',
-                'http://galleries.burningman.org/pages/BurningMan.com',
-                'mailto:JonathanLaLiberty@gmail.com', 'mailto:john@johnkgoodman.com',
-                'mailto:michael.muenzing@gmx.com'];
-            var years = ['2010', '2014', '2014', '2014', '2014', '2014', '2003', '2014', '2014',
-                '2014'];
+            var images = ['IslandsOnThePlaya.jpg', 'NikonTemple.jpg', 'TaxiJack.jpg',
+                'TheTempleofGraceatNight.jpg', 'WideOpenPlaya.jpg', 'BudhaonWheels.jpg',
+                'cazadordelsol.jpg', 'flapsinwind.jpg', 'homesunrise.jpg', 'lostnomads.jpg',
+                'nepenthe.jpg'];
+            var titles = ['Islands on the Playa', 'Leaving the gates of the Temple of Grace',
+                'Taxi Jack Dusting Along', 'Passing by the Temple of Grace', 'The WIDE OPEN Playa',
+                'Buddha on Wheels', '“Cazador-del-Sol” by Daniel Eiba', 'Playa Flags Sunrise',
+                'HOME Sunrise', 'Captain Nemo House', 'Totem'];
+            var photographers = ['MAD Imaging', 'MAD Imaging', 'MAD Imaging', 'MAD Imaging',
+                'MAD Imaging', 'Ales', 'Ales', 'Ales', 'Ales', 'Ales', 'Ales'];
+            var contacts = ['http://madimagingsf.com/', 'http://madimagingsf.com/',
+                'http://madimagingsf.com/', 'http://madimagingsf.com/', 'http://madimagingsf.com/',
+                'http://www.dusttoashes.com/', 'http://www.dusttoashes.com/',
+                'http://www.dusttoashes.com/', 'http://www.dusttoashes.com/',
+                'http://www.dusttoashes.com/', 'http://www.dusttoashes.com/'];
+            var years = ['2014', '2014', '2014', '2014', '2014', '2014', '2014', '2010', '2010',
+                '2014', '2014'];
             var imageChoice = Math.floor(Math.random() * images.length);
             $rootScope.backgroundImage = images[imageChoice];
             $rootScope.backgroundTitle = titles[imageChoice];
