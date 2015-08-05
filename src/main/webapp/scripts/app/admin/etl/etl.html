@@ -1,0 +1,8 @@
+<div class="well" cg-busy="etlPromise">
+    <h2>ETL Launcher</h2>
+    <button class="btn btn-primary" ng-click="launchEtl()">Launch ETL Process</button>
+    <div ng-show="etlResponse">
+        <p>Response from POST to /api/admin/etl. Check server log for more info.</p>
+        <pre>{{etlResponse | json}}</pre>
+    </div>
+</div>
