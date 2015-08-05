@@ -1,12 +1,11 @@
-<div cg-busy="listPromise">
-    <div class="row">
-        <div class="col-md-12">
-            <entity-card entity-type="entityType" ng-repeat="entity in entities"/>
-        </div>
-    </div>
-    <div class="row" ng-show="!isLoading">
-        <div class="col-md-12 text-center">
-            <pagination class="pagination-sm" total-items="totalEntities" ng-model="currentPage" ng-change="pageChanged()" max-size="5" rotate="false"></pagination>
-        </div>
+<div class="row">
+    <div class="col-md-12">
+        <entity-card entity-type="entityType" ng-repeat="entity in entities"/>
     </div>
 </div>
+<div class="row" ng-show="!isLoading">
+    <div class="col-md-12 text-center">
+        <pagination class="pagination-sm" total-items="totalEntities" ng-model="currentPage" ng-change="pageChanged()" max-size="5" rotate="false"></pagination>
+    </div>
+</div>
+

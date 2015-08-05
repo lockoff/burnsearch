@@ -203,3 +203,7 @@ ul#strengthBar {
 .well {
    background-color: rgba(245, 245, 245, 0.75);
 }
+
+.cg-busy-default-wrapper {
+    padding-top: 30px;
+}

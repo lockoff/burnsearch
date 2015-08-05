@@ -13,7 +13,7 @@ angular.module('burnsearchApp')
         $scope.entityType = entityType;
         $scope.isLoading = true;
         $window.scrollTo(0,0);
-        $scope.listPromise = $http.get(entityGetUrl).then(
+        $scope.$parent.listPromise = $http.get(entityGetUrl).then(
             function(response) {
                 $scope.currentPage = (+$stateParams[entityType + "PageNum"]) + 1;
                 $scope.entities = response.data.content;
