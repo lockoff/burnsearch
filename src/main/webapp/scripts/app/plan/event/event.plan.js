@@ -16,16 +16,8 @@ angular.module('burnsearchApp')
                     }
                 },
                 resolve: {
-                    resultsPage: function($http, $stateParams) {
-                        return $http.get('/api/plan/events/docs?page=' + $stateParams.eventsPageNum).then(
-                            function(response) {
-                                return {
-                                    entities: response.data.content,
-                                    totalEntities: response.data.totalItems,
-                                    pageNumber: +$stateParams.eventsPageNum
-                                }
-                            }
-                        )
+                    entityGetUrl: function($stateParams) {
+                        return '/api/plan/events/docs?page=' + $stateParams.eventsPageNum;
                     },
                     entityType: function() { return 'events' }
                 }
