@@ -2,7 +2,8 @@
 
 angular.module('burnsearchApp', ['LocalStorageModule',
                'ui.bootstrap', // for modal dialogs
-    'ngResource', 'ui.router', 'ngCookies', 'ngCacheBuster', 'infinite-scroll', 'angularMoment'])
+    'ngResource', 'ui.router', 'ngCookies', 'ngCacheBuster', 'infinite-scroll', 'angularMoment',
+    'cgBusy'])
 
     .run(function ($rootScope, $location, $window, $http, $state,  Auth, Principal, ENV, VERSION) {
         $rootScope.ENV = ENV;
@@ -135,4 +136,9 @@ angular.module('burnsearchApp', ['LocalStorageModule',
 
         $httpProvider.interceptors.push('authInterceptor');
 
+    })
+    .value('cgBusyDefaults', {
+        message: '',
+        backdrop: false,
+        templateUrl: 'scripts/components/progress/progress.template.html'
     });

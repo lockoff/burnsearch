@@ -6,4 +6,6 @@ angular.module('burnsearchApp')
 
 .constant('VERSION', '0.0.1-SNAPSHOT')
 
+.constant('angularMomentConfig', {timezone:'America/Los_Angeles'})
+
 ;
