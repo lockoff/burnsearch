@@ -113,14 +113,9 @@ public class EtlServiceTest {
 
     etlService.indexCampsAndEvents();
 
-    for (Camp camp : expectedCamps) {
-      verify(campSearchRepository, times(1)).index(camp);
-    }
-    for (Event event: expectedEvents) {
-      verify(eventSearchRepository, times(1)).index(event);
-    }
     verify(campSearchRepository, times(1)).deleteAll();
     verify(eventSearchRepository, times(1)).deleteAll();
     verify(template, times(1)).refresh(Camp.class, true);
+    verify(template, times(2)).bulkIndex(anyList());
   }
 }

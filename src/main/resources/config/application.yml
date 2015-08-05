@@ -42,3 +42,4 @@ swagger:
 etl:
     playaEventsCamp: http://playaevents.burningman.org/api/0.2/2015/camp/
     playaEventsEvent: http://playaevents.burningman.org/api/0.2/2015/event/
+    fixedRate: 86400000

@@ -1,13 +1,19 @@
 package org.burnsearch.service;
 
+import com.google.common.base.Function;
+import com.google.common.base.Supplier;
 import org.burnsearch.domain.Camp;
 import org.burnsearch.domain.Event;
 import org.burnsearch.repository.search.CampSearchRepository;
 import org.burnsearch.repository.search.EventSearchRepository;
 import org.burnsearch.service.dto.CampEtlDto;
 import org.burnsearch.service.dto.EventEtlDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.query.IndexQuery;
+import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -23,11 +29,11 @@ import java.util.stream.Collectors;
 
 /**
  * Service that loads information from the Burning Man API into an Elasticsearch index.
- * <p>
- * REPLACE ME WITH MORE DETAILS.
  */
 @Service
 public class EtlService {
+  private static final Logger LOG = LoggerFactory.getLogger(EtlService.class);
+
   @Inject
   private RestTemplate restTemplate;
 
@@ -46,28 +52,33 @@ public class EtlService {
   @Value("${etl.playaEventsEvent}")
   private String playaEventsEventUrl;
 
-  // Executes once a day at 1 am.
-  @Scheduled(cron = "0 0 1 * * ?")
+  // Execute when the application starts, then once every 24 hours.
+  @Scheduled(initialDelayString = "${etl.initialDelay}", fixedRateString = "${etl.fixedRate}")
   public void indexCampsAndEvents() throws IOException, ParseException {
+    LOG.info("Beginning ETL from Burning Man API.");
     eventSearchRepository.deleteAll();
     campSearchRepository.deleteAll();
     indexEvents();
     indexCamps();
     elasticsearchTemplate.refresh(Camp.class, true);
+    LOG.info("Finished ETL from Burning Man API.");
   }
 
+  private <T> void bulkIndex(List<T> entities, Function<T, Long> getId) {
+    List<IndexQuery> indexQueries = entities
+            .stream()
+            .map(entity -> new IndexQueryBuilder().withId(getId.apply(entity).toString()).withObject(entity).build())
+            .collect(Collectors.toList());
+    elasticsearchTemplate.bulkIndex(indexQueries);
+  }
   private void indexEvents() throws IOException, ParseException {
     List<Event> events = fetchEvents();
-    for (Event event : events) {
-      eventSearchRepository.index(event);
-    }
+    bulkIndex(events, Event::getId);
   }
 
   private void indexCamps() throws IOException, ParseException {
     List<Camp> camps = fetchCamps();
-    for (Camp camp : camps) {
-      campSearchRepository.index(camp);
-    }
+    bulkIndex(camps, Camp::getId);
   }
 
   private List<Event> fetchEvents() throws IOException, ParseException {

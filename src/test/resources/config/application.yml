@@ -71,3 +71,5 @@ swagger:
 etl:
     playaEventsCamp: http://playaevents.burningman.org/api/0.2/2015/camp/
     playaEventsEvent: http://playaevents.burningman.org/api/0.2/2015/event/
+    initialDelay: 86400000
+    fixedRate: 86400000
