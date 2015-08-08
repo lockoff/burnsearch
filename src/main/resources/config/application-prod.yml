@@ -47,6 +47,16 @@ spring:
         mode: XHTML
         cache: true
 
+mail:
+    host: email-smtp.us-west-2.amazonaws.com
+    port: 587
+    username: ${AWS_SES_USERNAME}
+    password: ${AWS_SES_PASSWORD}
+    protocol: smtp
+    tls: true
+    auth: true
+    from: playaplannerorg@gmail.com
+
 metrics:
     jmx.enabled: true
     spark:
