@@ -167,7 +167,12 @@ public class UserService {
     }
 
     public Set<Long> getEventList() {
-        return userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).get().getEventsList();
+        Set<Long> eventsList = userRepository
+            .findOneByLogin(SecurityUtils.getCurrentLogin())
+            .get()
+            .getEventsList();
+        eventsList.size(); // Force loading of lazy collection.
+        return eventsList;
     }
 
     public void addToCampList(Long campId) {
@@ -179,7 +184,12 @@ public class UserService {
     }
 
     public Set<Long> getCampList() {
-        return userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).get().getCampsList();
+        Set<Long> campsList = userRepository
+            .findOneByLogin(SecurityUtils.getCurrentLogin())
+            .get()
+            .getCampsList();
+        campsList.size(); // Force loading of lazy collection.
+        return campsList;
     }
 
     public void removeFromEventList(Long eventId) {

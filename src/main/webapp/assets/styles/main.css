@@ -207,3 +207,41 @@ ul#strengthBar {
 .cg-busy-default-wrapper {
     padding-top: 30px;
 }
+
+/* Classes defining background image sources. */
+@media all and (min-width: 768px) {
+    .islands-on-playa-bg-img {
+        background-image: url("../images/IslandsOnThePlaya.jpg")
+    }
+    .nikon-temple-bg-img {
+        background-image: url("../images/NikonTemple.jpg")
+    }
+    .taxi-jack-bg-img {
+        background-image: url("../images/TaxiJack.jpg")
+    }
+    .temple-grace-night-bg-img {
+        background-image: url("../images/TheTempleofGraceatNight.jpg")
+    }
+    .wide-open-playa-bg-img {
+        background-image: url("../images/WideOpenPlaya.jpg")
+    }
+    .buddha-wheels-bg-img {
+        background-image: url("../images/BudhaonWheels.jpg")
+    }
+    .cazador-del-sol-bg-img {
+        background-image: url("../images/cazadordelsol.jpg")
+    }
+    .flaps-in-wind-bg-img {
+        background-image: url("../images/flapsinwind.jpg")
+    }
+    .home-sunrise-bg-img {
+        background-image: url("../images/homesunrise.jpg")
+    }
+    .lost-nomads-bg-img {
+        background-image: url("../images/lostnomads.jpg")
+    }
+    .nepenthe-bg-img {
+        background-image: url("../images/nepenthe.jpg")
+    }
+}
+

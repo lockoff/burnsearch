@@ -9,11 +9,11 @@ spring:
         active: prod
     datasource:
         dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
-        url: jdbc:mysql://localhost:3306/burnsearch?useUnicode=true&characterEncoding=utf8
-        databaseName:
-        serverName:
-        username: root
-        password:
+        databaseName: ${RDS_DB_NAME}
+        serverName: ${RDS_HOSTNAME}
+        port: ${RDS_PORT}
+        username: ${RDS_USERNAME}
+        password: ${RDS_PASSWORD}
         cachePrepStmts: true
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048
@@ -36,8 +36,13 @@ spring:
 
     data:
         elasticsearch:
-            cluster-name:
-            cluster-nodes: localhost:9300
+            cluster-name: elasticsearch-playaplanner
+            cluster-nodes:
+            properties:
+                path:
+                    logs: elasticsearch/log
+                    data: elasticsearch/data
+
     thymeleaf:
         mode: XHTML
         cache: true

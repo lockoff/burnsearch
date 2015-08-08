@@ -41,10 +41,10 @@ angular.module('burnsearchApp', ['LocalStorageModule',
             }
         };
         function selectBackground() {
-            var images = ['IslandsOnThePlaya.jpg', 'NikonTemple.jpg', 'TaxiJack.jpg',
-                'TheTempleofGraceatNight.jpg', 'WideOpenPlaya.jpg', 'BudhaonWheels.jpg',
-                'cazadordelsol.jpg', 'flapsinwind.jpg', 'homesunrise.jpg', 'lostnomads.jpg',
-                'nepenthe.jpg'];
+            var imageClasses = ['islands-on-playa-bg-img', 'nikon-temple-bg-img', 'taxi-jack-bg-img',
+                'temple-grace-night-bg-img', 'wide-open-playa-bg-img', 'buddha-wheels-bg-img',
+                'cazador-del-sol-bg-img', 'flaps-in-wind-bg-img', 'home-sunrise-bg-img',
+                'lost-nomads-bg-img', 'nepenthe-bg-img'];
             var titles = ['Islands on the Playa', 'Leaving the gates of the Temple of Grace',
                 'Taxi Jack Dusting Along', 'Passing by the Temple of Grace', 'The WIDE OPEN Playa',
                 'Buddha on Wheels', '“Cazador-del-Sol” by Daniel Eiba', 'Playa Flags Sunrise',
@@ -58,24 +58,15 @@ angular.module('burnsearchApp', ['LocalStorageModule',
                 'http://www.dusttoashes.com/', 'http://www.dusttoashes.com/'];
             var years = ['2014', '2014', '2014', '2014', '2014', '2014', '2014', '2010', '2010',
                 '2014', '2014'];
-            var imageChoice = Math.floor(Math.random() * images.length);
-            $rootScope.backgroundImage = images[imageChoice];
+            var imageChoice = Math.floor(Math.random() * imageClasses.length);
+            var imageClass = imageClasses[imageChoice];
+            angular.element('body').addClass(imageClass);
             $rootScope.backgroundTitle = titles[imageChoice];
             $rootScope.backgroundPhotographer = photographers[imageChoice];
             $rootScope.backgroundContact = contacts[imageChoice];
             $rootScope.backgroundYear = years[imageChoice];
         }
-        function setBackground(mediaQuery) {
-            if (mediaQuery.matches) {
-                angular.element('body').css({
-                    'background-image': 'url("../assets/images/' + $rootScope.backgroundImage + '")'});
-            } else {
-                angular.element('body').css({'background-image': ''});
-            }
-            return mediaQuery;
-        }
         selectBackground();
-        setBackground($window.matchMedia('all and (min-width: 768px)')).addListener(setBackground);
     })
     .factory('authInterceptor', function ($rootScope, $q, $location, localStorageService) {
         return {

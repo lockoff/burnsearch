@@ -26,6 +26,7 @@ module.exports = function (config) {
             'main/webapp/bower_components/angular-cache-buster/angular-cache-buster.js',
             'main/webapp/bower_components/moment/moment.js',
             'main/webapp/bower_components/angular-moment/angular-moment.js',
+            'main/webapp/bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js',
             'main/webapp/bower_components/angular-animate/angular-animate.js',
             'main/webapp/bower_components/angular-busy/dist/angular-busy.js',
             'main/webapp/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
