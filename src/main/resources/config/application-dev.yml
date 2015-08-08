@@ -4,6 +4,9 @@ server:
 liquibase:
     context: dev
 
+# security configuration (this key should be unique for your application, and kept secret)
+jhipster.security.rememberme.key: 4713a1ed01211cc5e8da067f61812646db0e22e4
+
 spring:
     profiles:
         active: dev

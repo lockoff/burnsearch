@@ -4,6 +4,8 @@ server:
 liquibase:
     context: prod
 
+jhipster.security.rememberme.key: ${JHIP_REMEMBER_ME_KEY}
+
 spring:
     profiles:
         active: prod

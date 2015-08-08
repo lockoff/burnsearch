@@ -5,9 +5,6 @@ security.basic.enabled: false
 # Disable Jolokia - An http/json bridge for remote JMX access
 endpoints.jolokia.enabled: false
 
-# security configuration (this key should be unique for your application, and kept secret)
-jhipster.security.rememberme.key: 4713a1ed01211cc5e8da067f61812646db0e22e4
-
 async:
     corePoolSize: 2
     maxPoolSize: 50
@@ -26,7 +23,7 @@ mail:
 authentication:
     oauth:
         clientid: burnsearchapp
-        secret: mySecretOAuthSecret
+        secret: a4abf0145eae0ac6ed98a8ab2182ff68d8d2536a
         # Token is valid 30 minutes
         tokenValidityInSeconds: 1800
 

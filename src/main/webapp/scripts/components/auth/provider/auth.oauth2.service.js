@@ -6,12 +6,12 @@ angular.module('burnsearchApp')
             login: function(credentials) {
                 var data = "username=" + credentials.username + "&password="
                     + credentials.password + "&grant_type=password&scope=read%20write&" +
-                    "client_secret=mySecretOAuthSecret&client_id=burnsearchapp";
+                    "client_secret=a4abf0145eae0ac6ed98a8ab2182ff68d8d2536a&client_id=burnsearchapp";
                 return $http.post('oauth/token', data, {
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded",
                         "Accept": "application/json",
-                        "Authorization": "Basic " + Base64.encode("burnsearchapp" + ':' + "mySecretOAuthSecret")
+                        "Authorization": "Basic " + Base64.encode("burnsearchapp" + ':' + "a4abf0145eae0ac6ed98a8ab2182ff68d8d2536a")
                     }
                 }).success(function (response) {
                     var expiredAt = new Date();
