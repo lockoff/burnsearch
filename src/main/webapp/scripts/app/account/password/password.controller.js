@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('burnsearchApp')
-    .controller('PasswordController', function ($scope, $state, $timeout, Auth, Principal) {
+    .controller('PasswordController', function ($scope, Auth, Principal) {
         Principal.identity().then(function(account) {
             $scope.account = account;
         });
@@ -17,7 +17,6 @@ angular.module('burnsearchApp')
                 Auth.changePassword($scope.password).then(function () {
                     $scope.error = null;
                     $scope.success = 'OK';
-                    $timeout(function() { $state.go('home') }, 3000);
                 }).catch(function () {
                     $scope.success = null;
                     $scope.error = 'ERROR';
