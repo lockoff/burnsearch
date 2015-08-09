@@ -62,7 +62,7 @@
         <table class="table table-condensed table-striped info-table">
             <tr ng-repeat="occurrence in entity.occurrenceSet">
                 <td class="text-right">{{occurrence.startTime | amDateFormat:'ddd MMM D YYYY'}}:</td>
-                <td>{{occurrence.startTime | amDateFormat:'h:mm:ss A'}} - {{occurrence.endTime | amDateFormat:'h:mm:ss A'}}</td>
+                <td>{{occurrence.startTime | amDateFormat:'h:mm A'}} - {{occurrence.endTime | amDateFormat:'h:mm A'}}</td>
             </tr>
         </table>
     </div>
