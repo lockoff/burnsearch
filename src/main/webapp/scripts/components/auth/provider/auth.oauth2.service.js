@@ -1,13 +1,18 @@
 'use strict';
 
 angular.module('burnsearchApp')
-    .factory('AuthServerProvider', function loginService($http, localStorageService, Base64) {
+    .factory('AuthServerProvider', function loginService($http, $httpParamSerializer, localStorageService, Base64) {
         return {
             login: function(credentials) {
-                var data = "username=" + credentials.username + "&password="
-                    + credentials.password + "&grant_type=password&scope=read%20write&" +
-                    "client_secret=a4abf0145eae0ac6ed98a8ab2182ff68d8d2536a&client_id=burnsearchapp";
-                return $http.post('oauth/token', data, {
+                var data = {
+                    username: credentials.username,
+                    password: credentials.password,
+                    grant_type: "password",
+                    scope: "read write",
+                    client_secret: "a4abf0145eae0ac6ed98a8ab2182ff68d8d2536a",
+                    client_id: "burnsearchapp"
+                };
+                return $http.post('oauth/token', $httpParamSerializer(data), {
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded",
                         "Accept": "application/json",

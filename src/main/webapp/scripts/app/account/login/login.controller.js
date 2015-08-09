@@ -5,14 +5,12 @@ angular.module('burnsearchApp')
         $scope.user = {};
         $scope.errors = {};
 
-        $scope.rememberMe = true;
         $timeout(function (){angular.element('[ng-model="username"]').focus();});
         $scope.login = function (event) {
             event.preventDefault();
             Auth.login({
                 username: $scope.username,
-                password: $scope.password,
-                rememberMe: $scope.rememberMe
+                password: $scope.password
             }).then(function () {
                 $scope.authenticationError = false;
                 if ($rootScope.previousStateName === 'register') {
