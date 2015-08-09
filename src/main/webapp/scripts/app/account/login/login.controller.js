@@ -13,7 +13,9 @@ angular.module('burnsearchApp')
                 password: $scope.password
             }).then(function () {
                 $scope.authenticationError = false;
-                if ($rootScope.previousStateName === 'register') {
+                if ($rootScope.previousStateName === 'register'
+                        || $rootScope.previousStateName === 'activate'
+                        || $rootScope.previousStateName === 'finishReset') {
                     $state.go('home');
                 } else {
                     $rootScope.back();
