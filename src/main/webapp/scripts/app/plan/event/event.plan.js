@@ -7,7 +7,8 @@ angular.module('burnsearchApp')
                 parent: 'plan',
                 url: '/plan/events?eventsPageNum&campsPageNum',
                 data: {
-                    roles: ['ROLE_USER']
+                    roles: ['ROLE_USER'],
+                    pageTitle: "Event Plan"
                 },
                 views: {
                     "events@plan": {

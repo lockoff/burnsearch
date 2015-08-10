@@ -7,8 +7,8 @@ angular.module('burnsearchApp')
                 parent: 'account',
                 url: '/login',
                 data: {
-                    roles: [], 
-                    pageTitle: 'Authentication'
+                    roles: [],
+                    pageTitle: 'Login'
                 },
                 views: {
                     'content@': {
@@ -17,7 +17,7 @@ angular.module('burnsearchApp')
                     }
                 },
                 resolve: {
-                    
+
                 }
             });
     });

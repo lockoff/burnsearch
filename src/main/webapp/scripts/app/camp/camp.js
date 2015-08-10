@@ -12,7 +12,8 @@ angular.module('burnsearchApp')
                 parent: 'site',
                 url: '/camp/:campId',
                 data: {
-                    roles: []
+                    roles: [],
+                    pageTitle: "Camp"
                 },
                 views: {
                     'content@': {

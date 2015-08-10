@@ -12,7 +12,8 @@ angular.module('burnsearchApp')
                 parent: 'site',
                 url: '/event/:eventId',
                 data: {
-                    roles: []
+                    roles: [],
+                    pageTitle: "Event"
                 },
                 views: {
                     'content@': {

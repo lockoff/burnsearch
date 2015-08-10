@@ -8,7 +8,7 @@ angular.module('burnsearchApp')
                 url: '/password',
                 data: {
                     roles: ['ROLE_USER'],
-                    pageTitle: 'Password'
+                    pageTitle: 'Change Password'
                 },
                 views: {
                     'content@': {
@@ -17,7 +17,7 @@ angular.module('burnsearchApp')
                     }
                 },
                 resolve: {
-                    
+
                 }
             });
     });

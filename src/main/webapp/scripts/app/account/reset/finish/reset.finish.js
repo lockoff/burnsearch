@@ -7,7 +7,8 @@ angular.module('burnsearchApp')
                 parent: 'account',
                 url: '/reset/finish?key',
                 data: {
-                    roles: []
+                    roles: [],
+                    pageTitle: "Password Reset"
                 },
                 views: {
                     'content@': {
@@ -16,7 +17,7 @@ angular.module('burnsearchApp')
                     }
                 },
                 resolve: {
-                    
+
                 }
             });
     });

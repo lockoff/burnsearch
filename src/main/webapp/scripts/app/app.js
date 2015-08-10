@@ -20,7 +20,7 @@ angular.module('burnsearchApp', ['LocalStorageModule',
         });
 
         $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
-            var titleKey = 'burnsearch' ;
+            var titleKey = 'Playa Planner' ;
 
             $rootScope.previousStateName = fromState.name;
             $rootScope.previousStateParams = fromParams;
