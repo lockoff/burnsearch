@@ -71,7 +71,7 @@ public class PlanResource {
     @Timed
     public SearchResultsDTO<Event> getEventsListDocs(
             @RequestParam(value = "page", defaultValue = "0") int pageNumber,
-            @RequestParam(value = "size", defaultValue = "10") int size) {
+            @RequestParam(value = "size", defaultValue = "2147483647") int size) {
         Set<Long> eventsListIds = userService.getEventList();
         IdsQueryBuilder queryBuilder = new IdsQueryBuilder();
         for (Long eventId : eventsListIds) {
@@ -115,7 +115,7 @@ public class PlanResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public SearchResultsDTO<Camp> getCampsListDocs(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                   @RequestParam(value = "size", defaultValue = "10") int size) {
+                                                   @RequestParam(value = "size", defaultValue = "2147483647") int size) {
 
         IdsQueryBuilder qb = QueryBuilders.idsQuery();
         for(Long campId: this.getCamps()) {
