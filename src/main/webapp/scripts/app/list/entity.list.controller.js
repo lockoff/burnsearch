@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('burnsearchApp')
-    .controller('EntityListController', function($scope, $http, $state, $stateParams, $window, entityGetUrl, entityType, mode) {
+    .controller('EntityListController', function($scope, $http, $state, $stateParams, $window, $timeout, entityGetUrl, entityType, mode) {
+        $timeout(function () {
+            angular.element('#searchFormInput').blur();
+        });
         $scope.pageChanged = function () {
             $window.scrollTo(0,0);
             var params = {};

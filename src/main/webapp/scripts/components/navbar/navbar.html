@@ -84,7 +84,7 @@
             <form class="navbar-form" name="searchForm" novalidate ng-submit="$state.go('eventsSearch', {q: query, eventsPageNum: 0, campsPageNum: 0})">
                 <div class="form-group navbar-search-form">
                     <div class="input-group" style="width:100%">
-                        <input type="text" name="searchFormInput" class="form-control" placeholder="Search The Playa..." ng-model="query" required/>
+                        <input type="text" id="searchFormInput" name="searchFormInput" class="form-control" placeholder="Search The Playa..." ng-model="query" required/>
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="submit" collapser ng-disabled="searchForm.$invalid">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
