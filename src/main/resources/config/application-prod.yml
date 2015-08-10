@@ -57,7 +57,7 @@ mail:
     protocol: smtp
     tls: true
     auth: true
-    from: playaplannerorg@gmail.com
+    from: mail@playaplanner.org
 
 metrics:
     jmx.enabled: true

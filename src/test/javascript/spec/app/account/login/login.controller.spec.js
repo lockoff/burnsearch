@@ -12,9 +12,5 @@ describe('Controllers Tests ', function () {
             $scope = $rootScope.$new();
             $controller('LoginController', {$scope: $scope});
         }));
-
-        it('should set remember Me', function () {
-            expect($scope.rememberMe).toBeTruthy();
-        });
     });
 });
