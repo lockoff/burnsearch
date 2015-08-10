@@ -21,7 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Resource exposing endpoints for CRUD operations on a user's personal plans (i.e. lists of events,
@@ -79,9 +83,16 @@ public class PlanResource {
         }
         FacetedPage<Event> searchResults = eventSearchRepository
                 .search(queryBuilder, new PageRequest(pageNumber, size));
+        List<Event> sortedByDate = searchResults.getContent()
+                .stream()
+                .sorted((event1, event2) -> {
+                    Date event1StartTime = event1.getOccurrenceSet().get(0).getStartTime();
+                    Date event2StartTime = event2.getOccurrenceSet().get(0).getStartTime();
+                    return event1StartTime.compareTo(event2StartTime);
+                }).collect(Collectors.toCollection(ArrayList::new));
         return new SearchResultsDTO<>(searchResults.getNumber(),
                 searchResults.getTotalElements(),
-                searchResults.getContent());
+                sortedByDate);
     }
 
   @RequestMapping(value = "/plan/events/contains/{id}",
