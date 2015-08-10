@@ -15,31 +15,31 @@
                     <div class="btn-group pull-left" role="group" aria-label="Event Info Links"
                          ng-visible="entity.hostingCamp || entity.url">
                         <a class="btn btn-default" aria-label="Event Camp" ng-show="entity.hostingCamp"
-                           ui-sref="camp({campId: entity.hostingCamp.id})">
+                           ui-sref="camp({campId: entity.hostingCamp.id})" title="Event Camp">
                             <span class="glyphicon glyphicon-tent" aria-hidden="true"></span>
                         </a>
                         <a class="btn btn-default" aria-label="Event Website" ng-show="entity.url"
-                           href="{{entity.url}}" target="_blank">
+                           href="{{entity.url}}" target="_blank" title="Event Website">
                             <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                         </a>
                     </div>
                     <div class="btn-group pull-right text-right" role="group" aria-label="Event Info Tabs" ng-switch="isInPlan">
                         <label class="btn btn-default" aria-label="Event Description"
-                               ng-model="eventInfoTab" btn-radio="'Description'">
+                               ng-model="eventInfoTab" btn-radio="'Description'" title="Event Description">
                             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         </label>
                         <label class="btn btn-default" aria-label="Event Schedule" ng-model="eventInfoTab"
-                               btn-radio="'Schedule'">
+                               btn-radio="'Schedule'" title="Event Schedule">
                             <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                         </label>
                         <label class="btn btn-default" aria-label="Event Location" ng-model="eventInfoTab"
-                               btn-radio="'Location'">
+                               btn-radio="'Location'" title="Location Info">
                             <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                         </label>
-                        <label class="btn btn-success" aria-label="Add To Plan" ng-click="addToPlan()" ng-switch-when="false">
+                        <label class="btn btn-success" aria-label="Add To Plan" ng-click="addToPlan()" ng-switch-when="false" title="Add To Plan">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </label>
-                        <label class="btn btn-danger" aria-label="Remove From Plan" ng-click="removeFromPlan()" ng-switch-when="true">
+                        <label class="btn btn-danger" aria-label="Remove From Plan" ng-click="removeFromPlan()" ng-switch-when="true" title="Remove From Plan">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </label>
                     </div>

@@ -13,21 +13,21 @@
 
             <ul class="nav navbar-nav nav-pills navbar-right">
                 <li ui-sref-active="active">
-                    <a ui-sref="home" collapser>
+                    <a ui-sref="home" collapser title="Home">
                         <span class="glyphicon glyphicon-home"></span>
                     </a>
                 </li>
                 <li ng-class="{active: $state.includes('plan')}" class="dropdown pointer" ng-switch-when="true">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span>
-                            <span class="glyphicon glyphicon-list"></span>
+                            <span class="glyphicon glyphicon-list" title="Your Playa Plan"></span>
                             <b class="caret"></b>
                         </span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ui-sref-active="active"><a ui-sref="eventsPlan({eventsPageNum: 0, campsPageNum: 0})" collapser><span class="glyphicon glyphicon-sunglasses"></span>
+                        <li ui-sref-active="active"><a ui-sref="eventsPlan({eventsPageNum: 0, campsPageNum: 0})" collapser title="View Your Plan"><span class="glyphicon glyphicon-sunglasses"></span>
                             &#xA0;<span>View</span></a></li>
-                        <li ui-sref-active="active"><a ui-sref="printPlan"><span class="glyphicon glyphicon-print" collapser></span>
+                        <li ui-sref-active="active"><a ui-sref="printPlan" title="Print Your Plan"><span class="glyphicon glyphicon-print" collapser></span>
                             &#xA0;<span>Print</span></a></li>
                     </ul>
 
@@ -37,19 +37,19 @@
                 <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                                 <span>
-                                    <span class="glyphicon glyphicon-user"></span>
+                                    <span class="glyphicon glyphicon-user" title="Your Account"></span>
                                     <b class="caret"></b>
                                 </span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="password" collapser><span class="glyphicon glyphicon-lock"></span>
+                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="password" collapser title="Change Your Password"><span class="glyphicon glyphicon-lock"></span>
                             &#xA0;<span>Password</span></a></li>
-                        <li ui-sref-active="active" ng-switch-when="true"><a href="" ng-click="logout()" collapser><span class="glyphicon glyphicon-log-out"></span>
+                        <li ui-sref-active="active" ng-switch-when="true"><a href="" ng-click="logout()" collapser title="Logout"><span class="glyphicon glyphicon-log-out"></span>
                             &#xA0;<span>Logout</span></a></li>
-                        <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="login" collapser><span class="glyphicon glyphicon-log-in"></span>
+                        <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="login" collapser title="Login"><span class="glyphicon glyphicon-log-in"></span>
                             &#xA0;<span>Login</span></a></li>
 
-                        <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="register" collapser><span class="glyphicon glyphicon-plus-sign"></span>
+                        <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="register" collapser title="Register"><span class="glyphicon glyphicon-plus-sign"></span>
                             &#xA0;<span>Register</span></a></li>
                     </ul>
                 </li>
@@ -86,7 +86,7 @@
                     <div class="input-group" style="width:100%">
                         <input type="text" id="searchFormInput" name="searchFormInput" class="form-control" placeholder="Search The Playa..." ng-model="query" required/>
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="submit" collapser ng-disabled="searchForm.$invalid">
+                            <button class="btn btn-default" type="submit" collapser ng-disabled="searchForm.$invalid" title="Search The Playa!">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </button>
                         </span>

@@ -15,19 +15,19 @@
                     <div class="btn-group pull-left" role="group" aria-label="Camp Info Links"
                          ng-show="entity.url || entity.contactEmail">
                         <a class="btn btn-default" aria-label="Camp Website" ng-show="entity.url"
-                           href="{{entity.url}}" target="_blank">
+                           href="{{entity.url}}" target="_blank" title="Camp Website">
                             <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                         </a>
                         <a class="btn btn-default" aria-label="Camp Contact" ng-show="entity.contactEmail"
-                           href="mailto:{{entity.contactEmail}}">
+                           href="mailto:{{entity.contactEmail}}" title="Email Camp">
                             <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                         </a>
                     </div>
                     <div class="btn-group pull-right" role="group" aria-label="Camp Actions" ng-switch="isInPlan">
-                        <label class="btn btn-success" aria-label="Add To Plan" ng-click="addToPlan()" ng-switch-when="false">
+                        <label class="btn btn-success" aria-label="Add To Plan" ng-click="addToPlan()" ng-switch-when="false" title="Add To Plan">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </label>
-                        <label class="btn btn-danger" aria-label="Remove From Plan" ng-click="removeFromPlan()" ng-switch-when="true">
+                        <label class="btn btn-danger" aria-label="Remove From Plan" ng-click="removeFromPlan()" ng-switch-when="true" title="Remove From Plan">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </label>
                     </div>
