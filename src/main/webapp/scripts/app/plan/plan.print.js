@@ -26,7 +26,6 @@ angular.module('burnsearchApp')
                     eventsPlan: function($http) {
                         return $http.get("/api/plan/events/docs/print").then(
                             function(response) {
-                                console.log(response.data);
                                 return response.data;
                             }
                         )
