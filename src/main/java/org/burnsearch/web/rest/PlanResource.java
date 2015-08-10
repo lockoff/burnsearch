@@ -149,8 +149,11 @@ public class PlanResource {
             qb.addIds(campId.toString());
         }
         FacetedPage<Camp> searchResults = campSearchRepository.search(qb, new PageRequest(page, size));
+        List<Camp> sortedByName = searchResults.getContent().stream().sorted((camp1, camp2) ->
+                (camp1.getName().compareTo(camp2.getName())))
+                .collect(Collectors.toCollection(ArrayList::new));
         return new SearchResultsDTO<>(searchResults.getNumber(),
                 searchResults.getTotalElements(),
-                searchResults.getContent());
+                sortedByName);
     }
 }
