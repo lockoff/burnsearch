@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('burnsearchApp')
-    .controller('EntityListController', function($scope, $http, $state, $stateParams, $window, $timeout, entityGetUrl, entityType, mode) {
+    .controller('EntityListController', function($scope, $http, $state, $stateParams, $window, $timeout, PlanService, entityGetUrl, entityType, mode) {
         $timeout(function () {
             angular.element('#searchFormInput').blur();
         });
@@ -15,6 +15,8 @@ angular.module('burnsearchApp')
         $scope.$parent.entityTab = entityType;
         $scope.entityType = entityType;
         $scope.isLoading = true;
+        $scope.mode = mode;
+        $scope.isPlanEmpty = PlanService.isPlanEmpty;
         $window.scrollTo(0,0);
         $scope.$parent.listPromise = $http.get(entityGetUrl).then(
             function(response) {

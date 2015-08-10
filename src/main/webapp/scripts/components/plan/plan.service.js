@@ -7,11 +7,18 @@ angular.module('burnsearchApp')
                 events: undefined,
                 camps: undefined
             };
+            var planLengths = {
+                events: 0,
+                camps: 0
+            };
             return loadPlan("events").then(function (eventsPlan) {
-                plans.events = eventsPlan;
+                plans.events = eventsPlan.plan;
+                planLengths.events = eventsPlan.length;
                 return loadPlan("camps").then(function(campsPlan) {
-                    plans.camps = campsPlan;
+                    plans.camps = campsPlan.plan;
+                    planLengths.events = campsPlan.length;
                     StorageService.save("plans", plans);
+                    StorageService.save("planLengths", planLengths);
                 })
             })
         }
@@ -20,10 +27,15 @@ angular.module('burnsearchApp')
             return $http.get("/api/plan/" + planType).then(
                 function (response) {
                     var plan = {};
+                    var length = 0;
                     response.data.forEach(function (entityId) {
-                        plan[entityId] = true
+                        plan[entityId] = true;
+                        length = length + 1;
                     });
-                    return plan;
+                    return {
+                        plan: plan,
+                        length: length
+                    }
                 }
             )
         }
@@ -58,7 +70,10 @@ angular.module('burnsearchApp')
                 function (response) {
                     var plans = StorageService.get("plans");
                     plans[planType][entityId] = true;
+                    var planLengths = StorageService.get("planLengths");
+                    planLengths[planType] = planLengths[planType] + 1;
                     StorageService.save("plans", plans);
+                    StorageService.save("planLengths", planLengths);
                 }
             );
         }
@@ -69,9 +84,20 @@ angular.module('burnsearchApp')
                 function (response) {
                     var plans = StorageService.get("plans");
                     plans[planType][entityId] = false;
+                    var planLengths = StorageService.get("planLengths");
+                    planLengths[planType] = planLengths[planType] - 1;
                     StorageService.save("plans", plans);
+                    StorageService.save("planLengths", planLengths);
                 }
             );
+        }
+
+        function isPlanEmpty(planType) {
+            var planLengths = StorageService.get("planLengths");
+            if (planLengths[planType] > 0) {
+                return false;
+            }
+            return true;
         }
 
         return {
@@ -80,6 +106,7 @@ angular.module('burnsearchApp')
             },
             isInPlan: isInPlan,
             addToPlan: addToPlan,
-            removeFromPlan: removeFromPlan
+            removeFromPlan: removeFromPlan,
+            isPlanEmpty: isPlanEmpty
         }
     });
