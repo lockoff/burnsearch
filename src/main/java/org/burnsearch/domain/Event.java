@@ -1,5 +1,6 @@
 package org.burnsearch.domain;
 
+import com.google.common.collect.Lists;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -16,6 +17,26 @@ import java.util.List;
 @Document(indexName = "burn", type = "event", shards = 1, refreshInterval = "-1")
 public class Event {
 
+  public Event() {
+
+  }
+
+  public Event(Event event) {
+    this.setAllDay(event.getAllDay());
+    this.setCheckLocation(event.getCheckLocation());
+    this.setDescription(event.getDescription());
+    this.setEventType(event.getEventType());
+    this.setHostingCamp(event.getHostingCamp());
+    this.setId(event.getId());
+    this.setLocatedAtArt(event.getLocatedAtArt());
+    this.setOccurrenceSet(event.getOccurrenceSet());
+    this.setOtherLocation(event.getOtherLocation());
+    this.setPrintDescription(event.getPrintDescription());
+    this.setSlug(event.getSlug());
+    this.setTitle(event.getTitle());
+    this.setUrl(event.getUrl());
+    this.setYear(event.getYear());
+  }
   @Id
   private Long id;
 

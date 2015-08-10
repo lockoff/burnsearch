@@ -1,57 +1,47 @@
-<div class="visible-print">
-    <h2>Your Playa Plan</h2>
-    <h3>Camps</h3>
+<div class="visible-print" style="font-size: 10px">
+    <h5>Your Playa Plan</h5>
+    <h6>Camps</h6>
     <table class="table" ng-show="campsPlan.length">
         <tr ng-repeat="camp in campsPlan">
             <td>
-                <h4>{{camp.name}}</h4>
-                <p>{{camp.description}}</p>
-                <table class="table table-condensed info-table-print" ng-show="camp.url || camp.contactEmail">
-                    <tr ng-show="camp.url">
-                        <td class="text-right heading-cell">Website:</td>
-                        <td><a href="{{camp.url}}">{{camp.url}}</a></td>
-                    </tr>
-                    <tr ng-show="camp.contactEmail">
-                        <td class="text-right heading-cell">Email:</td>
-                        <td><a href="mailto:{{camp.contactEmail}}">{{camp.contactEmail}}</a></td>
-                    </tr>
-                </table>
+                <p>
+                    <strong>{{camp.name}}</strong>
+                    <br/>{{camp.description}}
+                    <span ng-show="camp.url">
+                        <br/><strong>Website:</strong> <a href="{{camp.url}}">{{camp.url}}</a>
+                    </span>
+                </p>
             </td>
         </tr>
     </table>
     <p ng-show="!campsPlan.length">There are no camps in your plan.</p>
-    <h3>Events</h3>
     <table class="table" ng-show="eventsPlan.length">
-        <tr ng-repeat="event in eventsPlan">
+        <tr ng-repeat="dayOfEvents in eventsPlan">
             <td>
-                <h4>{{event.title}}</h4>
-                <p>{{event.description | description}}</p>
-                <p class="text-warning" ng-show="event.checkLocation">Check Directory at Playa Info for
-                    Camp Location</p>
-                <table class="table table-condensed info-table-print">
-                    <tr>
-                        <td class="text-right heading-cell">Event Type:</td>
-                        <td>{{event.eventType | eventType: event.allDay}}</td>
-                    </tr>
-                    <tr ng-show="event.hostingCamp">
-                        <td class="text-right heading-cell">Hosting Camp:</td>
-                        <td>{{event.hostingCamp.name}}</td>
-                    </tr>
-                    <tr ng-show="event.locatedAtArt">
-                        <td class="text-right heading-cell">Art Piece:</td>
-                        <td>{{event.locatedAtArt | locatedAtArt}}</td>
-                    </tr>
-                    <tr ng-show="event.otherLocation">
-                        <td class="text-right heading-cell">Location Info:</td>
-                        <td>{{event.otherLocation}}</td>
-                    </tr>
-                    <tr ng-show="event.url">
-                        <td class="text-right heading-cell">Website:</td>
-                        <td><a href="{{event.url}}">{{event.url}}</a></td>
-                    </tr>
-                    <tr ng-repeat="occurrence in event.occurrenceSet">
-                        <td class="text-right heading-cell">{{occurrence.startTime | amDateFormat:'ddd MMM D YYYY'}}:</td>
-                        <td>{{occurrence.startTime | amDateFormat:'h:mm A'}} - {{occurrence.endTime | amDateFormat:'h:mm A'}}</td>
+                <h6>Events on {{dayOfEvents.day | amDateFormat:'ddd MMM D YYYY'}}</h6>
+                <table class="table">
+                    <tr ng-repeat="event in dayOfEvents.events">
+                        <td>
+                            <p>
+                                <strong>{{event.title}}</strong><br/>
+                                {{event.occurrenceSet[0].startTime | amDateFormat:'h:mm A'}} - {{event.occurrenceSet[0].endTime | amDateFormat:'h:mm A'}}<br/>
+                                {{event.description | description}}
+                                <span class="text-warning" ng-show="event.checkLocation"><br/>Check Directory at Playa Info for Camp Location</span>
+                                <br/><strong>Event Type: </strong>{{event.eventType | eventType: event.allDay}}
+                                <span ng-show="event.hostingCamp">
+                                    <br/><strong>Hosting Camp: </strong>{{event.hostingCamp.name}}
+                                </span>
+                                <span ng-show="event.locatedAtArt">
+                                    <br/><strong>Art Piece: </strong>{{event.locatedAtArt | locatedAtArt}}
+                                </span>
+                                <span ng-show="event.otherLocation">
+                                    <br/><strong>Location Info: </strong>{{event.otherLocation}}
+                                </span>
+                                <span ng-show="event.url">
+                                    <br/><strong>Website: </strong><a href="{{event.url}}">{{event.url}}</a>
+                                </span>
+                            </p>
+                        </td>
                     </tr>
                 </table>
             </td>

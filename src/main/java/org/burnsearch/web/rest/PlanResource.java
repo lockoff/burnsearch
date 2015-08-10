@@ -1,11 +1,14 @@
 package org.burnsearch.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.google.common.collect.Lists;
+import org.apache.commons.lang3.time.DateUtils;
 import org.burnsearch.domain.Event;
 import org.burnsearch.domain.Camp;
 import org.burnsearch.repository.search.CampSearchRepository;
 import org.burnsearch.repository.search.EventSearchRepository;
 import org.burnsearch.service.UserService;
+import org.burnsearch.web.rest.dto.EventCalendarDto;
 import org.burnsearch.web.rest.dto.SearchResultsDTO;
 import org.elasticsearch.index.query.IdsQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -22,10 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Resource exposing endpoints for CRUD operations on a user's personal plans (i.e. lists of events,
@@ -95,7 +102,56 @@ public class PlanResource {
                 sortedByDate);
     }
 
-  @RequestMapping(value = "/plan/events/contains/{id}",
+    @RequestMapping(value = "/plan/events/docs/print",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<EventCalendarDto> getEventsListPrint() {
+        Set<Long> eventsListIds = userService.getEventList();
+        IdsQueryBuilder queryBuilder = new IdsQueryBuilder();
+        for (Long eventId : eventsListIds) {
+            queryBuilder.addIds(eventId.toString());
+        }
+        Iterable<Event> searchResults = eventSearchRepository
+                .search(queryBuilder);
+        HashMap<Date, List<Event>> eventsByDay = StreamSupport.stream(searchResults.spliterator(), false)
+                .flatMap(event -> {
+                    return event.getOccurrenceSet().stream().map(eventOccurrence -> {
+                        Event eventRepeat = new Event(event);
+                        eventRepeat.setOccurrenceSet(Lists.newArrayList(eventOccurrence));
+                        return eventRepeat;
+                    });
+                })
+                .map(event -> {
+                    HashMap<Date, List<Event>> dayMap = new HashMap<>();
+                    dayMap.put(DateUtils.truncate(event.getOccurrenceSet().get(0).getStartTime(), Calendar.DAY_OF_MONTH), Lists.newArrayList(event));
+                    return dayMap;
+                })
+                .reduce(new HashMap<>(), (dayMap1, dayMap2) -> {
+                    dayMap2.forEach((day, events) -> {
+                        events.addAll(dayMap1.getOrDefault(day, new ArrayList<>()));
+                        dayMap1.put(day, events);
+                    });
+                    return dayMap1;
+                });
+        return eventsByDay
+                .entrySet()
+                .stream()
+                .map(entry -> {
+                    EventCalendarDto dto = new EventCalendarDto();
+                    dto.setDay(entry.getKey());
+                    entry.getValue().sort((event1, event2) -> {
+                        return event1.getOccurrenceSet().get(0).getStartTime().compareTo(event2.getOccurrenceSet().get(0).getStartTime());
+                    });
+                    dto.setEvents(entry.getValue());
+                    return dto;
+                })
+                .sorted((eventDto1, eventDto2) -> eventDto1.getDay().compareTo(eventDto2.getDay()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+
+    @RequestMapping(value = "/plan/events/contains/{id}",
       method = RequestMethod.GET,
       produces = MediaType.APPLICATION_JSON_VALUE)
   @Timed

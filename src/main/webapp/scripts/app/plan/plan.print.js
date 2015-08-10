@@ -24,9 +24,10 @@ angular.module('burnsearchApp')
                         );
                     },
                     eventsPlan: function($http) {
-                        return $http.get("/api/plan/events/docs?page=0&size=2147483647").then(
+                        return $http.get("/api/plan/events/docs/print").then(
                             function(response) {
-                                return response.data.content;
+                                console.log(response.data);
+                                return response.data;
                             }
                         )
                     }
