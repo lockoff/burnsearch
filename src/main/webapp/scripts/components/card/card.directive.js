@@ -46,6 +46,9 @@ angular.module('burnsearchApp')
                         PlanService.removeFromPlan(entityType, $scope.entity.id).then(
                             function() {
                                 $scope.isInPlan = false;
+                                if ($scope.$parent.mode == 'Plan') {
+                                    $scope.$parent.decrementPlanCount();
+                                }
                             }
                         )
                     };

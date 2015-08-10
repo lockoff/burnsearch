@@ -84,7 +84,15 @@ public class PlanResource {
                 searchResults.getContent());
     }
 
-    @RequestMapping(value = "/plan/camps/{id}",
+  @RequestMapping(value = "/plan/events/contains/{id}",
+      method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  @Timed
+  public boolean eventPlanContains(@PathVariable("id") Long eventId) {
+    return userService.getEventList().contains(eventId);
+  }
+
+  @RequestMapping(value = "/plan/camps/{id}",
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -100,6 +108,14 @@ public class PlanResource {
     public Set<Long> getCamps() {
         return userService.getCampList();
     }
+
+  @RequestMapping(value = "/plan/camps/contains/{id}",
+      method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  @Timed
+  public boolean campPlanContains(@PathVariable("id") Long campId) {
+    return userService.getCampList().contains(campId);
+  }
 
     @RequestMapping(value = "/plan/camps/{id}",
             method = RequestMethod.DELETE,

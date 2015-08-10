@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('burnsearchApp')
-    .controller('NavbarController', function ($scope, $location, $state, Auth, Principal, PlanService) {
+    .controller('NavbarController', function ($scope, $location, $state, Auth, Principal) {
         $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.$state = $state;
         $scope.query = '';
@@ -12,7 +12,6 @@ angular.module('burnsearchApp')
 
         $scope.logout = function () {
             Auth.logout();
-            PlanService.clearPlans();
             $state.go('home');
         };
     });

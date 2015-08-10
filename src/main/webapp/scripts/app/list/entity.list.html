@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <div class="alert alert-neutral" ng-show="(!entities.length || (mode == 'Plan' && isPlanEmpty(entityType))) && !isLoading">
+        <div class="alert alert-neutral" ng-show="(!entities.length || (mode == 'Plan' && !planCount)) && !isLoading">
             <p ng-show="mode == 'Search'">No {{entityType}} found matching your search.</p>
             <p ng-show="mode == 'Plan'">There are no {{entityType}} in your Playa Plan. Use the search bar above to find some to add!</p>
         </div>

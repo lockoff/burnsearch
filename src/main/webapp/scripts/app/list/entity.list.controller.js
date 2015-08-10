@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('burnsearchApp')
-    .controller('EntityListController', function($scope, $http, $state, $stateParams, $window, $timeout, PlanService, entityGetUrl, entityType, mode) {
+    .controller('EntityListController', function($scope, $http, $state, $stateParams, $window, $timeout, entityGetUrl, entityType, mode) {
         $timeout(function () {
             angular.element('#searchFormInput').blur();
         });
@@ -15,14 +15,22 @@ angular.module('burnsearchApp')
         $scope.$parent.entityTab = entityType;
         $scope.entityType = entityType;
         $scope.isLoading = true;
+        if (mode == 'Plan') {
+            $scope.planCount = undefined;
+            $scope.decrementPlanCount = function() {
+                $scope.planCount = $scope.planCount - 1;
+            }
+        }
         $scope.mode = mode;
-        $scope.isPlanEmpty = PlanService.isPlanEmpty;
         $window.scrollTo(0,0);
         $scope.$parent.listPromise = $http.get(entityGetUrl).then(
             function(response) {
                 $scope.currentPage = (+$stateParams[entityType + "PageNum"]) + 1;
                 $scope.entities = response.data.content;
                 $scope.totalEntities = response.data.totalItems;
+                if (mode == 'Plan') {
+                    $scope.planCount = $scope.totalEntities;
+                }
                 $scope.isLoading = false;
             },
             function (response) {
