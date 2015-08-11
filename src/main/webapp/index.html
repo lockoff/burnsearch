@@ -27,7 +27,7 @@
         <div ng-show="{{ENV === 'dev'}}" class="development" ng-cloak></div>
         <div ui-view="navbar" ng-cloak></div>
         <div class="container" ui-view="content" ng-cloak></div>
-        <footer class="footer" ng-cloak>
+        <footer class="footer hidden-print" ng-cloak>
                 <h6><span class="hidden-xs">Background Photo '{{backgroundTitle}}' Copyright (c) {{backgroundYear}} <a href="{{backgroundContact}}" target="_blank">{{backgroundPhotographer}}</a>.
                 <br/></span>
                 "Unofficial" location information provided by <a href="https://www.google.com/maps/d/u/0/viewer?mid=zkszwyFJ-h7E.kaxgaF8gR5Sw" target="_blank">The Unofficial Map of Black Rock City</a>.
