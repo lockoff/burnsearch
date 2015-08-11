@@ -49,4 +49,21 @@ public class CampResource {
         searchResults.getTotalElements(),
         searchResults.getContent());
   }
+
+  @RequestMapping(value = "/search",
+      method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE
+  )
+  @Timed
+  public SearchResultsDTO<Camp> searchMultiMatch(@RequestParam(value = "q") String query,
+      @RequestParam(value = "page", defaultValue = "0") int page,
+      @RequestParam(value = "size", defaultValue = "10") int size) {
+    QueryBuilder qb = QueryBuilders.multiMatchQuery(query, "name", "description",
+        "unofficialMapLocation");
+    FacetedPage<Camp> searchResults = campSearchRepository.search(qb, new PageRequest(page, size));
+    return new SearchResultsDTO<>(searchResults.getNumber(),
+        searchResults.getTotalElements(),
+        searchResults.getContent());
+  }
+
 }

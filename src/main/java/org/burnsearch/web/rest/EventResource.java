@@ -6,6 +6,7 @@ import org.burnsearch.repository.search.EventSearchRepository;
 import org.burnsearch.web.rest.dto.SearchResultsDTO;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
@@ -48,6 +49,24 @@ public class EventResource {
       @RequestParam(value = "page", defaultValue = "0") int pageNumber,
       @RequestParam(value = "size", defaultValue = "10") int size) {
     QueryBuilder queryBuilder = new MatchQueryBuilder("description", description);
+    FacetedPage<Event> searchResults = eventSearchRepository
+        .search(queryBuilder, new PageRequest(pageNumber, size));
+    return new SearchResultsDTO<>(searchResults.getNumber(),
+        searchResults.getTotalElements(),
+        searchResults.getContent());
+  }
+
+  @RequestMapping(value = "/search",
+      method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE
+  )
+  @Timed
+  public SearchResultsDTO<Event> searchMultiMatch(@RequestParam(value = "q") String query,
+      @RequestParam(value = "page", defaultValue = "0") int pageNumber,
+      @RequestParam(value = "size", defaultValue = "10") int size) {
+    QueryBuilder queryBuilder = QueryBuilders.multiMatchQuery(query,
+        "description", "printDescription", "title", "hostingCamp.name", "eventType.label",
+        "otherLocation", "locatedAtArt.name", "unofficialMapLocation");
     FacetedPage<Event> searchResults = eventSearchRepository
         .search(queryBuilder, new PageRequest(pageNumber, size));
     return new SearchResultsDTO<>(searchResults.getNumber(),

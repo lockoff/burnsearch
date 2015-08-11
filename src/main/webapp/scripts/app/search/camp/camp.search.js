@@ -17,8 +17,12 @@ angular.module('burnsearchApp')
                     }
                 },
                 resolve: {
-                    entityGetUrl: function($stateParams) {
-                        return '/api/camps/search/description?q=' + $stateParams.q + "&page=" + $stateParams.campsPageNum;
+                    entityGetUrl: function($stateParams, $httpParamSerializer) {
+                        var getParams = {
+                            q: $stateParams.q,
+                            page: $stateParams.campsPageNum
+                        };
+                        return '/api/camps/search?' + $httpParamSerializer(getParams);
                     },
                     entityType: function() { return 'camps' }
                 }
