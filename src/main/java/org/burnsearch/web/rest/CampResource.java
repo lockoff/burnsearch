@@ -58,8 +58,7 @@ public class CampResource {
   public SearchResultsDTO<Camp> searchMultiMatch(@RequestParam(value = "q") String query,
       @RequestParam(value = "page", defaultValue = "0") int page,
       @RequestParam(value = "size", defaultValue = "10") int size) {
-    QueryBuilder qb = QueryBuilders.multiMatchQuery(query, "name", "description",
-        "unofficialMapLocation");
+    QueryBuilder qb = QueryBuilders.multiMatchQuery(query, "name", "description");
     FacetedPage<Camp> searchResults = campSearchRepository.search(qb, new PageRequest(page, size));
     return new SearchResultsDTO<>(searchResults.getNumber(),
         searchResults.getTotalElements(),

@@ -20,7 +20,7 @@ public class Camp {
   @Id
   private Long id;
 
-  @Field(type = FieldType.String, indexAnalyzer = "whitespace", searchAnalyzer = "whitespace")
+  @Field(type = FieldType.String, indexAnalyzer = "standard", searchAnalyzer = "standard")
   private String name;
 
   @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
@@ -35,7 +35,7 @@ public class Camp {
   @Field(type = FieldType.Date, format = DateFormat.year)
   private Date year;
 
-  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+  @Field(type = FieldType.String, indexAnalyzer = "standard", searchAnalyzer = "standard")
   private String unofficialMapLocation;
 
   public String getUnofficialMapLocation() {

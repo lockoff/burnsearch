@@ -47,7 +47,7 @@ public class Event {
   @Field(type = FieldType.String, indexAnalyzer = "english", searchAnalyzer = "english")
   private String printDescription;
 
-  @Field(type = FieldType.String, indexAnalyzer = "english", searchAnalyzer = "english")
+  @Field(type = FieldType.String, indexAnalyzer = "standard", searchAnalyzer = "standard")
   private String title;
 
   @Field(type = FieldType.Object)
@@ -80,7 +80,7 @@ public class Event {
   @Field(type = FieldType.Nested)
   private List<EventOccurrence> occurrenceSet;
 
-  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+  @Field(type = FieldType.String, indexAnalyzer = "standard", searchAnalyzer = "standard")
   private String unofficialMapLocation;
 
   public String getUnofficialMapLocation() {
