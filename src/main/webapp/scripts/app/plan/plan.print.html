@@ -1,9 +1,6 @@
 <div class="visible-print" style="font-size: 10px">
-    <h5>Your Playa Plan</h5>
-    <h6>Camps</h6>
-    <table class="table" ng-show="campsPlan.length">
-        <tr ng-repeat="camp in campsPlan">
-            <td>
+    <h5>Camps</h5>
+        <div ng-repeat="camp in campsPlan">
                 <p>
                     <strong>{{camp.name}}</strong>
                     <br/>{{camp.description}}
@@ -14,17 +11,13 @@
                         <br/><strong>Unofficial Location:</strong> {{camp.unofficialMapLocation}}
                     </span>
                 </p>
-            </td>
-        </tr>
-    </table>
+                <hr/>
+        </div>
     <p ng-show="!campsPlan.length">There are no camps in your plan.</p>
-    <table class="table" ng-show="eventsPlan.length">
-        <tr ng-repeat="dayOfEvents in eventsPlan">
-            <td>
-                <h6>Events on {{dayOfEvents.day | amDateFormat:'ddd MMM D YYYY'}}</h6>
-                <table class="table">
-                    <tr ng-repeat="event in dayOfEvents.events">
-                        <td>
+    <div ng-show="eventsPlan.length">
+        <div ng-repeat="dayOfEvents in eventsPlan">
+                <h5>Events on {{dayOfEvents.day | amDateFormat:'ddd MMM D YYYY'}}</h5>
+                    <div ng-repeat="event in dayOfEvents.events">
                             <p>
                                 <strong>{{event.title}}</strong><br/>
                                 {{event.occurrenceSet[0].startTime | amDateFormat:'h:mm A'}} - {{event.occurrenceSet[0].endTime | amDateFormat:'h:mm A'}}<br/>
@@ -47,11 +40,9 @@
                                     <br/><strong>Website: </strong><a href="{{event.url}}">{{event.url}}</a>
                                 </span>
                             </p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+                            <hr/>
+                    </div>
+        </div>
+    </div>
     <p ng-show="!eventsPlan.length">There are no events in your plan.</p>
 </div>
