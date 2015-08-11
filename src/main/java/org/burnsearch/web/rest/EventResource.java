@@ -65,7 +65,7 @@ public class EventResource {
       @RequestParam(value = "page", defaultValue = "0") int pageNumber,
       @RequestParam(value = "size", defaultValue = "10") int size) {
     QueryBuilder queryBuilder = QueryBuilders.multiMatchQuery(query,
-        "description", "printDescription", "title", "hostingCamp.name", "eventType.label",
+        "description^3", "title^2", "hostingCamp.name", "eventType.label",
         "otherLocation", "locatedAtArt.name", "unofficialMapLocation");
     FacetedPage<Event> searchResults = eventSearchRepository
         .search(queryBuilder, new PageRequest(pageNumber, size));
