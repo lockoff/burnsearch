@@ -10,6 +10,9 @@
                     <span ng-show="camp.url">
                         <br/><strong>Website:</strong> <a href="{{camp.url}}">{{camp.url}}</a>
                     </span>
+                    <span ng-show="camp.unofficialMapLocation">
+                        <br/><strong>Unofficial Location:</strong> {{camp.unofficialMapLocation}}
+                    </span>
                 </p>
             </td>
         </tr>
@@ -36,6 +39,9 @@
                                 </span>
                                 <span ng-show="event.otherLocation">
                                     <br/><strong>Location Info: </strong>{{event.otherLocation}}
+                                </span>
+                                <span ng-show="event.unofficialMapLocation">
+                                    <br/><strong>Unofficial Location: </strong>{{event.unofficialMapLocation}}
                                 </span>
                                 <span ng-show="event.url">
                                     <br/><strong>Website: </strong><a href="{{event.url}}">{{event.url}}</a>

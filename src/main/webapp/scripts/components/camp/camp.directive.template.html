@@ -5,7 +5,7 @@
                 <h3 class="panel-title" ng-show="!entity">Camp Not Found!</h3>
 
                 <h3 class="panel-title" ng-show="entity">{{entity.name}}</h3>
-                <h6 ng-show="entity">Camp at Burning Man 2015</h6>
+                <h6 ng-show="entity">Camp at Burning Man 2015<span ng-show="entity.unofficialMapLocation"><br/>{{entity.unofficialMapLocation}} (Unofficial)</span></h6>
             </div>
         </div>
         <div class="row">

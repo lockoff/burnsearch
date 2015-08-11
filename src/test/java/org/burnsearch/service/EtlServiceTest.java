@@ -54,6 +54,7 @@ public class EtlServiceTest {
 
   private String playaEventsCampUrl;
   private String playaEventsEventUrl;
+  private String unofficialMapUrl;
   private CampEtlDto[] campDtos;
   private EventEtlDto[] eventDtos;
   private List<Event> expectedEvents;
@@ -64,8 +65,10 @@ public class EtlServiceTest {
     MockitoAnnotations.initMocks(this);
     playaEventsCampUrl = "http://example.com/camps";
     playaEventsEventUrl = "http://example.com/event";
+    unofficialMapUrl = "http://example.com/map";
     ReflectionTestUtils.setField(etlService, "playaEventsCampUrl", playaEventsCampUrl);
     ReflectionTestUtils.setField(etlService, "playaEventsEventUrl", playaEventsEventUrl);
+    ReflectionTestUtils.setField(etlService, "unofficialMapUrl", unofficialMapUrl);
     ObjectMapper objectMapper = new ObjectMapper();
     List<CampEtlDto> campEtlDtoList = objectMapper.readValue(getJsonString("camps.json"),
         new TypeReference<List<CampEtlDto>>() {});
@@ -94,7 +97,7 @@ public class EtlServiceTest {
         EventEtlDto[].class)).thenReturn(eventDtos);
     when(restTemplate.getForObject(playaEventsCampUrl,
         CampEtlDto[].class)).thenReturn(campDtos);
-
+    when(restTemplate.getForObject(unofficialMapUrl, byte[].class)).thenReturn(new byte[0]);
     etlService.indexCampsAndEvents();
 
 

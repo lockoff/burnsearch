@@ -36,6 +36,7 @@ public class Event {
     this.setTitle(event.getTitle());
     this.setUrl(event.getUrl());
     this.setYear(event.getYear());
+    this.setUnofficialMapLocation(event.getUnofficialMapLocation());
   }
   @Id
   private Long id;
@@ -78,6 +79,17 @@ public class Event {
 
   @Field(type = FieldType.Nested)
   private List<EventOccurrence> occurrenceSet;
+
+  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+  private String unofficialMapLocation;
+
+  public String getUnofficialMapLocation() {
+    return unofficialMapLocation;
+  }
+
+  public void setUnofficialMapLocation(String unofficialMapLocation) {
+    this.unofficialMapLocation = unofficialMapLocation;
+  }
 
   public Long getId() {
     return id;

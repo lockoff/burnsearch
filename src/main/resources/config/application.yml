@@ -39,4 +39,5 @@ swagger:
 etl:
     playaEventsCamp: http://playaevents.burningman.org/api/0.2/2015/camp/
     playaEventsEvent: http://playaevents.burningman.org/api/0.2/2015/event/
+    unofficialMap: https://mapsengine.google.com/map/kml?mid=zkszwyFJ-h7E.kaxgaF8gR5Sw
     fixedRate: 86400000

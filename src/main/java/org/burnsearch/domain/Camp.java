@@ -35,6 +35,17 @@ public class Camp {
   @Field(type = FieldType.Date, format = DateFormat.year)
   private Date year;
 
+  @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+  private String unofficialMapLocation;
+
+  public String getUnofficialMapLocation() {
+    return unofficialMapLocation;
+  }
+
+  public void setUnofficialMapLocation(String unofficialMapLocation) {
+    this.unofficialMapLocation = unofficialMapLocation;
+  }
+
   public Long getId() {
     return id;
   }

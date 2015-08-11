@@ -2,6 +2,12 @@ package org.burnsearch.service;
 
 import com.google.common.base.Function;
 import com.google.common.base.Supplier;
+import de.micromata.opengis.kml.v_2_2_0.Data;
+import de.micromata.opengis.kml.v_2_2_0.Document;
+import de.micromata.opengis.kml.v_2_2_0.ExtendedData;
+import de.micromata.opengis.kml.v_2_2_0.Folder;
+import de.micromata.opengis.kml.v_2_2_0.Kml;
+import org.apache.commons.io.IOUtils;
 import org.burnsearch.domain.Camp;
 import org.burnsearch.domain.Event;
 import org.burnsearch.service.dto.CampEtlDto;
@@ -20,11 +26,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.inject.Inject;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -46,12 +60,16 @@ public class EtlService {
   @Value("${etl.playaEventsEvent}")
   private String playaEventsEventUrl;
 
+  @Value("${etl.unofficialMap}")
+  private String unofficialMapUrl;
+
   // Execute when the application starts, then once every 24 hours.
   @Scheduled(initialDelayString = "${etl.initialDelay}", fixedRateString = "${etl.fixedRate}")
   public void indexCampsAndEvents() throws IOException, ParseException {
     LOG.info("Beginning ETL from Burning Man API.");
-    indexEntitiesDeleteStale(this::fetchEvents, Event::getId, Event.class);
-    indexEntitiesDeleteStale(this::fetchCamps, Camp::getId, Camp.class);
+    Map<String, String> campNamesToLocations = fetchCampNamesToLocations();
+    indexEntitiesDeleteStale(this::fetchEvents, Event::getId, campNamesToLocations, Event.class);
+    indexEntitiesDeleteStale(this::fetchCamps, Camp::getId, campNamesToLocations, Camp.class);
     elasticsearchTemplate.refresh(Camp.class, true);
     LOG.info("Finished ETL from Burning Man API.");
   }
@@ -76,26 +94,71 @@ public class EtlService {
     elasticsearchTemplate.delete(deleteQuery, entityClass);
   }
 
-  private <T> void indexEntitiesDeleteStale(Supplier<List<T>> fetcher,
-      Function<T, Long> getId, Class<T> entityClass) {
-    List<T> entities = fetcher.get();
+  private <T> void indexEntitiesDeleteStale(Function<Map<String, String>, List<T>> fetcher,
+      Function<T, Long> getId, Map<String, String> campNamesToLocations, Class<T> entityClass) {
+    List<T> entities = fetcher.apply(campNamesToLocations);
     bulkIndex(entities, getId);
     deleteIfNotIds(
-        entities.stream().map(entity -> getId.apply(entity).toString()).collect(Collectors.toList()),
+        entities.stream().map(entity -> getId.apply(entity).toString()).collect(Collectors.toList
+            ()),
         entityClass);
   }
 
-  private List<Event> fetchEvents() {
+  private List<Event> fetchEvents(Map<String, String> campNamesToLocations) {
     EventEtlDto[] events = restTemplate.getForObject(playaEventsEventUrl, EventEtlDto[].class);
     return Arrays.stream(events)
-        .map(event -> event.toEventDocument())
+        .map(eventDto -> {
+          Event event = eventDto.toEventDocument();
+          String eventCamp = event.getHostingCamp() != null ? event.getHostingCamp().getName().toLowerCase() : null;
+          if (eventCamp != null && campNamesToLocations.containsKey(eventCamp)) {
+            event.setUnofficialMapLocation(campNamesToLocations.get(eventCamp));
+          }
+          return event;
+        })
         .collect(Collectors.toCollection(ArrayList::new));
   }
 
-  private List<Camp> fetchCamps() {
+  private List<Camp> fetchCamps(Map<String, String> campNamesToLocations) {
     CampEtlDto[] camps = restTemplate.getForObject(playaEventsCampUrl, CampEtlDto[].class);
     return Arrays.stream(camps)
-        .map(camp -> camp.toCampDocument())
+        .map(campDto -> {
+          Camp camp = campDto.toCampDocument();
+          String campName = camp.getName().toLowerCase();
+          if (campNamesToLocations.containsKey(campName)) {
+            camp.setUnofficialMapLocation(campNamesToLocations.get(campName));
+          }
+          return camp;
+        })
         .collect(Collectors.toCollection(ArrayList::new));
+  }
+
+  private Map<String, String> fetchCampNamesToLocations() throws IOException {
+    File temp = File.createTempFile("kml-download", ".kmz");
+    byte[] kmzBytes = restTemplate.getForObject(unofficialMapUrl, byte[].class);
+    if (kmzBytes.length == 0) {
+      return new HashMap<>();
+    }
+    try (InputStream downloadStream = new ByteArrayInputStream(kmzBytes);
+         OutputStream fileOutStream = new FileOutputStream(temp)) {
+      IOUtils.copy(downloadStream, fileOutStream);
+      Kml kml = Kml.unmarshalFromKmz(temp)[0];
+      Document kmlDocument = (Document) kml.getFeature();
+      Folder themeCamp = (Folder) kmlDocument
+          .getFeature()
+          .stream()
+          .filter(feature -> feature.getName().equals("Theme Camps"))
+          .findAny()
+          .get();
+      Map<String, String> campNamesToLocations = new HashMap<>();
+      themeCamp.getFeature()
+          .stream()
+          .forEach(feature -> {
+            ExtendedData extendedData = feature.getExtendedData();
+            Data locationData = extendedData.getData().stream().filter(data -> data.getName().equals("Location")).findAny().get();
+            String location = locationData.getValue().replace(", Black Rock City, NV", "").trim();
+            campNamesToLocations.put(feature.getName().toLowerCase(), location);
+          });
+      return campNamesToLocations;
+    }
   }
 }

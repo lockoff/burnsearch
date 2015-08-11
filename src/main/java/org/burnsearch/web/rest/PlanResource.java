@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -114,7 +115,7 @@ public class PlanResource {
         }
         Iterable<Event> searchResults = eventSearchRepository
                 .search(queryBuilder);
-        HashMap<Date, List<Event>> eventsByDay = StreamSupport.stream(searchResults.spliterator(), false)
+        Map<Date, List<Event>> eventsByDay = StreamSupport.stream(searchResults.spliterator(), false)
                 .flatMap(event -> {
                     return event.getOccurrenceSet().stream().map(eventOccurrence -> {
                         Event eventRepeat = new Event(event);
@@ -123,7 +124,7 @@ public class PlanResource {
                     });
                 })
                 .map(event -> {
-                    HashMap<Date, List<Event>> dayMap = new HashMap<>();
+                    Map<Date, List<Event>> dayMap = new HashMap<>();
                     dayMap.put(DateUtils.truncate(event.getOccurrenceSet().get(0).getStartTime(), Calendar.DAY_OF_MONTH), Lists.newArrayList(event));
                     return dayMap;
                 })
