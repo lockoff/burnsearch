@@ -12,6 +12,7 @@ import org.burnsearch.domain.Camp;
 import org.burnsearch.domain.Event;
 import org.burnsearch.service.dto.CampEtlDto;
 import org.burnsearch.service.dto.EventEtlDto;
+import org.burnsearch.web.rest.SiteMapResource;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.IdsQueryBuilder;
 import org.slf4j.Logger;
@@ -39,6 +40,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -68,8 +70,9 @@ public class EtlService {
   public void indexCampsAndEvents() throws IOException, ParseException {
     LOG.info("Beginning ETL from Burning Man API.");
     Map<String, String> campNamesToLocations = fetchCampNamesToLocations();
-    indexEntitiesDeleteStale(this::fetchEvents, Event::getId, campNamesToLocations, Event.class);
-    indexEntitiesDeleteStale(this::fetchCamps, Camp::getId, campNamesToLocations, Camp.class);
+    SiteMapResource.clearUrls();
+    indexEntitiesDeleteStale(this::fetchEvents, Event::getId, SiteMapResource::addEventUrl, campNamesToLocations, Event.class);
+    indexEntitiesDeleteStale(this::fetchCamps, Camp::getId, SiteMapResource::addCampUrl, campNamesToLocations, Camp.class);
     elasticsearchTemplate.refresh(Camp.class, true);
     LOG.info("Finished ETL from Burning Man API.");
   }
@@ -95,13 +98,21 @@ public class EtlService {
   }
 
   private <T> void indexEntitiesDeleteStale(Function<Map<String, String>, List<T>> fetcher,
-      Function<T, Long> getId, Map<String, String> campNamesToLocations, Class<T> entityClass) {
+      Function<T, Long> getId,
+      Consumer<Long> siteMapUpdate,
+      Map<String, String> campNamesToLocations,
+      Class<T> entityClass) {
     List<T> entities = fetcher.apply(campNamesToLocations);
     bulkIndex(entities, getId);
+    updateSiteMap(entities, siteMapUpdate, getId);
     deleteIfNotIds(
         entities.stream().map(entity -> getId.apply(entity).toString()).collect(Collectors.toList
             ()),
         entityClass);
+  }
+
+  private <T> void updateSiteMap(List<T> entities, Consumer<Long> siteMapUpdate, Function<T, Long> getId) {
+    entities.forEach(entity -> siteMapUpdate.accept(getId.apply(entity)));
   }
 
   private List<Event> fetchEvents(Map<String, String> campNamesToLocations) {

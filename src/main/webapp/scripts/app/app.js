@@ -30,6 +30,13 @@ angular.module('burnsearchApp', ['LocalStorageModule',
                 titleKey = toState.data.pageTitle;
             }
             $window.document.title = titleKey;
+
+            if ($window.ga && $rootScope.ENV != 'dev') {
+                $window.ga('send', 'pageview', {
+                    page: $location.path(),
+                    title: titleKey
+                });
+            }
         });
 
         $rootScope.back = function() {
